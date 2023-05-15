@@ -41,11 +41,6 @@ namespace WebApp.UI.Controllers
                 if (response.Success)
                 {
                     //STORE THE TOKEN AND REFRESH TOKEN IN THE COOKIE
-
-                    //var tokenDataString = Newtonsoft.Json.JsonConvert.SerializeObject(response.Data);
-
-                    //HttpContext.Session.SetString("JwtToken", tokenDataString);
-
                     SetTokenInCookie(response.Data);
 
                     return Redirect("/dashboard");

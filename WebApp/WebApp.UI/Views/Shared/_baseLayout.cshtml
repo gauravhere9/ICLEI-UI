@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="" />
+    <title>ICLEI</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="ICLEI" />
+    <link rel="canonical" href="" />
+    <link rel="shortcut icon" href="assets/media/logos/logo.png" />
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" asp-append-version="true" />
+    <!--end::Fonts-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <!--end::Global Stylesheets Bundle-->
+</head>
+<body id="kt_body" class="app-blank bgi-size-cover bgi-attachment-fixed bgi-position-center">
+
+    <!--begin::Theme mode setup on page load-->
+    <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+    <!--end::Theme mode setup on page load-->
+    <!--begin::Root-->
+    <div class="d-flex flex-column flex-root" id="kt_app_root">
+
+        <!--begin::Theme mode setup on page load-->
+        <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+        <!--end::Theme mode setup on page load-->
+        <!--begin::Root-->
+        <div class="d-flex flex-column flex-root" id="kt_app_root">
+            <!--begin::Page bg image-->
+            <style>
+                body {
+                    background-image: url('assets/media/auth/bg10.jpeg');
+                }
+
+                [data-bs-theme="dark"] body {
+                    background-image: url('assets/media/auth/bg10-dark.jpeg');
+                }</style>
+            <!--end::Page bg image-->
+            <!--begin::Authentication - Sign-in -->
+            <div class="d-flex flex-column flex-lg-row flex-column-fluid">
+                @RenderBody()
+
+            </div>
+            <!--end::Authentication - Sign-in-->
+        </div>
+        <!--end::Root-->
+    </div>
+    <!--end::Root-->
+    <!--begin::Javascript-->
+    <script>var hostUrl = "assets/";</script>
+    <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="assets/plugins/global/plugins.bundle.js" asp-append-version="true"></script>
+    <script src="assets/js/scripts.bundle.js" asp-append-version="true"></script>
+    <!--end::Global Javascript Bundle-->
+    
+    <!--end::Javascript-->
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+<!--end::Body-->
+</html>

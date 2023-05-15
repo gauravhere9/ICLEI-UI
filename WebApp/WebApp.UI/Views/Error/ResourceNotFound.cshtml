@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Not Found";
+}
+
+<!--begin::Root-->
+<div class="d-flex flex-column flex-root" id="kt_app_root">
+    <!--begin::Page bg image-->
+    <style>
+        body {
+            background-image: url('assets/media/auth/bg10.jpeg');
+        }
+
+        [data-bs-theme="dark"] body {
+            background-image: url('assets/media/auth/bg10-dark.jpeg');
+        }</style>
+    <!--end::Page bg image-->
+    <!--begin::Authentication - Sign-in -->
+    <div class="d-flex flex-column flex-lg-row flex-column-fluid">
+        <!--begin::Aside-->
+        <div class="d-flex flex-lg-row-fluid">
+            <!--begin::Content-->
+            <div class="d-flex flex-column flex-center pb-0 pb-lg-10 p-10 w-100">
+                <!--begin::Image-->
+                <a href="/">
+                    <img asp-append-version="true" class="theme-light-show mx-auto mw-100 w-150px w-lg-150px mb-10 mb-lg-5" src="assets/media/logos/logo.png" alt="" />
+                </a>
+
+                <!--end::Image-->
+                <!--begin::Title-->
+                <h1 class="text-warning fw-bold text-center fs-xl-7x">404</h1>
+                <!--end::Title-->
+                <!--begin::Title-->
+                <h1 class="text-warning fw-bold text-center mb-7 fs-3x"> NOT FOUND</h1>
+                <!--end::Title-->
+                <!--begin::Text-->
+                <div class="text-gray-600 fs-base text-center fw-semibold">
+                    The requested URL or resource was not found.
+
+                </div>
+                <!--end::Text-->
+            </div>
+            <!--end::Content-->
+        </div>
+        <!--begin::Aside-->
+
+    </div>
+    <!--end::Authentication - Sign-in-->
+</div>
+<!--end::Root-->

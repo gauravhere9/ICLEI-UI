@@ -1,0 +1,11 @@
+{
+  "AuthenticationOptions": {
+    "Enabled": true,
+    "JWTToken": {
+      "Secret": "SKRM_CMS_OUTREACH_THISISUSEDTOSIGNANDVERIFYJWTTOKENS",
+      "ExpirationTime": 1440,
+      "Issuer": "SKRM_CMS_OUTREACH",
+      "RefreshTokenExpitingMinuts": 1440
+    }
+  }
+}

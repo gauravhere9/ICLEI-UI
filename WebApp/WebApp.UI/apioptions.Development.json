@@ -1,0 +1,7 @@
+{
+  "ApiOptions": {
+    "RequestTimeOut": 60,
+    //"BaseUrl": "https://localhost:7135/"
+    "BaseUrl": "http://110.172.171.218:8080/"
+  }
+}

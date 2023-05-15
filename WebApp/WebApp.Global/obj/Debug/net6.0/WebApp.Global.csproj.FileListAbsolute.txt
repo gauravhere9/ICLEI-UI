@@ -1,0 +1,26 @@
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\bin\Debug\net6.0\nlog.config
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\bin\Debug\net6.0\WebApp.Global.deps.json
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\bin\Debug\net6.0\WebApp.Global.dll
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\bin\Debug\net6.0\WebApp.Global.pdb
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.csproj.AssemblyReference.cache
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.AssemblyInfoInputs.cache
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.AssemblyInfo.cs
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.csproj.CoreCompileInputs.cache
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.dll
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\obj\Debug\net6.0\refint\WebApp.Global.dll
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.pdb
+D:\Work\Clients\ICLEI\code\ICLEI\ui\WebApp\WebApp.Global\obj\Debug\net6.0\ref\WebApp.Global.dll
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\bin\Debug\net6.0\nlog.config
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\bin\Debug\net6.0\WebApp.Global.deps.json
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\bin\Debug\net6.0\WebApp.Global.dll
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\bin\Debug\net6.0\WebApp.Global.pdb
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.csproj.AssemblyReference.cache
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.AssemblyInfoInputs.cache
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.AssemblyInfo.cs
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.csproj.CoreCompileInputs.cache
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.dll
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\obj\Debug\net6.0\refint\WebApp.Global.dll
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\obj\Debug\net6.0\WebApp.Global.pdb
+D:\Work\Clients\ICLEI\code\ICLEI UI\WebApp\WebApp.Global\obj\Debug\net6.0\ref\WebApp.Global.dll

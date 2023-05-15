@@ -27,10 +27,5 @@ namespace WebApp.UI.Controllers
 
             Response.Cookies.Append(keyTokenCookie, stringValue, cookieOptions);
         }
-
-        protected void SetTokenInAuthorizationHeader(string token)
-        {
-
-        }
     }
 }

@@ -62,3 +62,14 @@
 /WebApp/.vs/WebApp/v17/fileList.bin
 /WebApp/WebApp.UI/obj/Debug/net6.0/ref/WebApp.UI.dll
 /WebApp/WebApp.UI/obj/Debug/net6.0/refint/WebApp.UI.dll
+/WebApp/WebApp.DTOs/bin/Release/net6.0
+/WebApp/WebApp.DTOs/obj/Release/net6.0
+/WebApp/WebApp.Global/bin/Release/net6.0
+/WebApp/WebApp.Global/obj/Release/net6.0
+/WebApp/WebApp.UI/.config
+/WebApp/WebApp.UI/bin/Release/net6.0
+/WebApp/WebApp.UI/obj/Debug/net6.0/WebApp.UI.MvcApplicationPartsAssemblyInfo.cs
+/WebApp/WebApp.UI/obj/Release/net6.0/PubTmp/Out
+/WebApp/WebApp.UI/obj/Release/net6.0
+/WebApp/WebApp.UI/obj
+/WebApp/WebApp.UI/Properties/PublishProfiles

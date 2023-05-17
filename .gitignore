@@ -54,3 +54,13 @@
 /WebApp/.vs/WebApp/FileContentIndex/1a02eb09-90de-4363-aaaa-328080e38648.vsidx
 /WebApp/.vs/WebApp/FileContentIndex/0e8428b4-0194-4b6c-a2f8-3301ce107842.vsidx
 /WebApp/.vs/WebApp/v17/.suo
+/WebApp/WebApp.DTOs/bin/Release/net6.0
+/WebApp/WebApp.DTOs/obj/Release/net6.0
+/WebApp/WebApp.Global/bin/Release/net6.0
+/WebApp/WebApp.Global/obj/Release/net6.0
+/WebApp/WebApp.UI/.config
+/WebApp/WebApp.UI/bin/Release/net6.0
+/WebApp/WebApp.UI/obj/Debug/net6.0/project.razor.vs.json
+/WebApp/WebApp.UI/obj/Release/net6.0
+*.targets
+/WebApp/WebApp.UI/Properties/PublishProfiles

@@ -1,7 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Login";
     Layout = "_AuthLayout";
 }
+
 @model LoginRequestDto
 <!--begin::Body-->
 <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
@@ -14,7 +15,8 @@
                 <!--begin::Form-->
                 @using (Html.BeginRouteForm("PostLogin", FormMethod.Post, new { @id = "kt_sign_in_form", @class = "form w-100" }))
                 {
-                    @* <form class="form w-100" method="post" asp-route="login">*@
+                    @Html.AntiForgeryToken()
+
                     <!--begin::Heading-->
                     <div class="text-center mb-11">
 
@@ -53,8 +55,8 @@
                     <!--end::Input group=-->
                     <!--begin::Submit button-->
                     <div class="d-grid mb-10">
-                        
-                        <button type="submit" class="btn btn-success">
+                                                
+                        <button type="submit" class="btn btn-success" id="kt_sign_in_submit">
                             <!--begin::Indicator label-->
                             <span class="indicator-label">Sign In</span>
                             <!--end::Indicator label-->
@@ -73,23 +75,9 @@
                         <strong><a href="forgot-password" class="text-gray-800">Click here.</a></strong>
                     </div>
                     <!--end::Sign up-->
-                    @*</form>*@
-
-
-                    @if (ViewBag.Errors != null)
-                    {
-
-                        @foreach (var item in ViewBag.Errors)
-                        {
-                            <span class="alert alert-danger">@item</span>
-                        }
-
-                    }
                 }
                 <!--end::Form-->
 
-
-               
             </div>
             <!--end::Wrapper-->
             <!--begin::Footer-->
@@ -111,18 +99,29 @@
     </div>
     <!--end::Wrapper-->
 </div>
-<!--end::Body-->
-@*@section Scripts {
-    <script>
 
-        var successSwal = function () {
-            Swal.fire (
-                { 
-                    text: "Form has been successfully submitted!", 
-                    icon: "success", 
-                    buttonsStyling: !1, 
-                    confirmButtonText: "Ok, got it!", 
-                    customClass: { confirmButton: "btn btn-primary" } }).then((function (t) { t.isConfirmed && o.hide() }));
-                }
+ 
+   @* @if (ViewData["JavaScriptFunction"] != null)
+    {
+        <script type="text/javascript">
+            @Html.Raw(ViewBag.JavaScriptFunction)
+        </script>
+    }
+
+    <script type="text/javascript">
+
+        function successSwal(message) {
+            var t = document.querySelector("#kt_sign_in_submit");
+
+            Swal.fire(
+                {
+                    text: message,
+                    icon: "success",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: { confirmButton: "btn btn-primary" }
+                });
+            //.then((function (t) { t.isConfirmed && o.hide() }));
+        }
     </script>
-}*@
+*@

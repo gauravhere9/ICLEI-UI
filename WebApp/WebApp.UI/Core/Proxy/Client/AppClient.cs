@@ -1,6 +1,7 @@
 ﻿using Polly;
 using Polly.Retry;
 using WebApp.DTOs.Auth.Login.Request;
+using WebApp.DTOs.Auth.Login.Response;
 using WebApp.DTOs.Auth.Password.Request;
 using WebApp.DTOs.Auth.RefreshToken.Request;
 using WebApp.Global.Options;
@@ -44,6 +45,8 @@ namespace WebApp.UI.Core.Proxy.Client
         {
             _httpClient.Timeout = TimeSpan.FromSeconds(_apiOptions.RequestTimeOut);
 
+            SetAuthorizationHeaderToken(_httpContextAccessor, _httpClient);
+
             var url = _apiOptions.BaseUrl + endpointUrl;
 
             HttpContent httpContent = null;
@@ -67,6 +70,33 @@ namespace WebApp.UI.Core.Proxy.Client
 
                 return await HttpContentHelper.GetModelFromHttpResponseContent(response.Content);
             });
+        }
+
+        private void SetAuthorizationHeaderToken(IHttpContextAccessor httpContextAccessor, HttpClient httpClient)
+        {
+            string token = GetAuthenticationTokenFromSession(httpContextAccessor);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            }
+        }
+
+        private string GetAuthenticationTokenFromSession(IHttpContextAccessor httpContextAccessor)
+        {
+            var tokenSession = httpContextAccessor.HttpContext.Session.GetString("X-Access-Token");
+
+            if (!string.IsNullOrEmpty(tokenSession))
+            {
+                var tokenData = Newtonsoft.Json.JsonConvert.DeserializeObject<LoginResponseDto>(tokenSession);
+
+                if (tokenData != null)
+                {
+                    return tokenData.Token;
+                }
+            }
+
+            return string.Empty;
         }
 
         #endregion

@@ -44,14 +44,20 @@ namespace WebApp.UI.Core.Middlewares
             if (_authenticationOptions.Enabled)
             {
                 var key = "X-Access-Token";
-                var tokenDetails = context.Request.Cookies[key];
+                //var tokenDetails = context.Request.Cookies[key];
+                var tokenDetails = context.Session.GetString(key);
 
                 var endpoint = context.GetEndpoint();
                 if (endpoint == null)
                 {
                     if (string.IsNullOrWhiteSpace(tokenDetails))
                     {
-                        context.Response.Redirect("/");
+                        //context.Response.Redirect("/");
+                        //await Task.CompletedTask;
+                        //return;
+
+
+                        await _next(context);
                         await Task.CompletedTask;
                         return;
                     }
@@ -132,7 +138,7 @@ namespace WebApp.UI.Core.Middlewares
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        protected async Task<IPrincipal?> AuthenticateJwtToken(string token)
+        private async Task<IPrincipal?> AuthenticateJwtToken(string token)
         {
             var result = await ValidateToken(token);
             if (result.isValid)
@@ -158,6 +164,7 @@ namespace WebApp.UI.Core.Middlewares
                             };
 
                             IPrincipal? user = userDetails;
+
                             return user;
                         }
 
@@ -172,7 +179,7 @@ namespace WebApp.UI.Core.Middlewares
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<(bool isValid, TokenValidationResult tokenValidationResult)> ValidateToken(string token)
+        private async Task<(bool isValid, TokenValidationResult tokenValidationResult)> ValidateToken(string token)
         {
             var validationResult = await GetTokenValidationResult(token);
 
@@ -192,7 +199,7 @@ namespace WebApp.UI.Core.Middlewares
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        public async Task<TokenValidationResult?> GetTokenValidationResult(string token)
+        private async Task<TokenValidationResult?> GetTokenValidationResult(string token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 

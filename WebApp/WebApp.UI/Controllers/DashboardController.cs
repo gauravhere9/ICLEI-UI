@@ -6,9 +6,11 @@ namespace WebApp.UI.Controllers
     public class DashboardController : BaseController
     {
         private readonly ApplicationOptions _applicationOptions;
-        public DashboardController(ApplicationOptions applicationOptions) : base(applicationOptions)
+        private readonly AuthenticationOptions _authenticationOptions;
+        public DashboardController(ApplicationOptions applicationOptions, AuthenticationOptions authenticationOptions) : base(applicationOptions, authenticationOptions)
         {
             _applicationOptions = applicationOptions;
+            _authenticationOptions = authenticationOptions;
         }
 
         [Route("dashboard")]

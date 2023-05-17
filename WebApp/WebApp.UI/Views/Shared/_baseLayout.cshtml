@@ -61,7 +61,43 @@
     <script src="assets/plugins/global/plugins.bundle.js" asp-append-version="true"></script>
     <script src="assets/js/scripts.bundle.js" asp-append-version="true"></script>
     <!--end::Global Javascript Bundle-->
-    
+
+
+    <script type="text/javascript">
+        function ShowErrorSwal(message) {
+            Swal.fire(
+                {
+                    text: message,
+                    icon: "error",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: { confirmButton: "btn btn-primary" }
+                });
+        };
+        function ShowSuccessSwal(message, redirectUrl) {
+            Swal.fire(
+                {
+                    text: message,
+                    icon: "success",
+                    buttonsStyling: !1,
+                    confirmButtonText: "Ok, got it!",
+                    customClass: { confirmButton: "btn btn-primary" }
+                })
+                .then((function (t) {
+                    if (t.isConfirmed) {
+                        location.href = redirectUrl
+                    }
+                }));
+        };
+    </script>
+
+    @if (ViewBag.JavaScriptFunction != null)
+    {
+        <script type="text/javascript">
+            @Html.Raw(ViewBag.JavaScriptFunction)
+        </script>
+    }
+
     <!--end::Javascript-->
     @await RenderSectionAsync("Scripts", required: false)
 </body>

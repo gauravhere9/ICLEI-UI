@@ -1,5 +1,4 @@
-﻿using WebApp.UI.Core.Authentication;
-using WebApp.UI.Core.Authentication.Implementations;
+﻿using WebApp.DTOs.Auth.Login.Response;
 
 namespace WebApp.UI.Core.APIExtensions
 {
@@ -8,20 +7,52 @@ namespace WebApp.UI.Core.APIExtensions
         public static IServiceCollection AddAndConfigureHttpClients(this IServiceCollection @this)
         {
             @this.AddHttpClient()
-                .AddHttpClient("ICLEI API", c =>
+                .AddHttpClient("ICLEI API", (serviceProvider, httpClient) =>
                 {
-                    c.DefaultRequestHeaders.Add("Accept", "application/json");
+                    var httpContextAccessor = serviceProvider.GetService<HttpContextAccessor>();
+
+                    SetAuthorizationHeaderToken(httpContextAccessor, httpClient);
+
+                    httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
                 })
-                .AddHttpMessageHandler(m =>
-                {
-                    var provider = @this.BuildServiceProvider();
-                    var tokenProvider = provider.GetRequiredService<TokenProvider>();
+                //.AddHttpMessageHandler(m =>
+                //{
+                //    var provider = @this.BuildServiceProvider();
+                //    var tokenProvider = provider.GetRequiredService<TokenProvider>();
 
-                    return new ProtectedApiBearerTokenHandler(tokenProvider);
+                //    return new ProtectedApiBearerTokenHandler(tokenProvider);
 
-                });
+                //})
+                ;
 
             return @this;
+        }
+
+        private static void SetAuthorizationHeaderToken(IHttpContextAccessor httpContextAccessor, HttpClient httpClient)
+        {
+            string token = GetAuthenticationTokenFromSession(httpContextAccessor);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+            }
+        }
+
+        private static string GetAuthenticationTokenFromSession(IHttpContextAccessor httpContextAccessor)
+        {
+            var tokenSession = httpContextAccessor.HttpContext.Session.GetString("X-Access-Token");
+
+            if (!string.IsNullOrEmpty(tokenSession))
+            {
+                var tokenData = Newtonsoft.Json.JsonConvert.DeserializeObject<LoginResponseDto>(tokenSession);
+
+                if (tokenData != null)
+                {
+                    return tokenData.Token;
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

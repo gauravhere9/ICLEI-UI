@@ -563,7 +563,7 @@
                     customClass: { confirmButton: "btn btn-primary" }
                 })
                 .then((function (t) {
-                    if (t.isConfirmed) {
+                    if (t.isConfirmed && redirectUrl != "") {
                         location.href = redirectUrl
                     }
                 }));

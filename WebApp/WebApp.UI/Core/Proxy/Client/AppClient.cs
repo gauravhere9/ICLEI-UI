@@ -4,8 +4,12 @@ using WebApp.DTOs.Auth.Login.Request;
 using WebApp.DTOs.Auth.Login.Response;
 using WebApp.DTOs.Auth.Password.Request;
 using WebApp.DTOs.Auth.RefreshToken.Request;
+using WebApp.DTOs.Auth.RefreshToken.Response;
+using WebApp.DTOs.CompanyInfo.Request;
+using WebApp.DTOs.CompanyInfo.Response;
 using WebApp.Global.Options;
 using WebApp.Global.Response;
+using WebApp.Global.Shared.DTOs;
 using WebApp.UI.Core.Proxy.Helpers;
 using static WebApp.Global.Constants.Enumurations;
 
@@ -41,7 +45,7 @@ namespace WebApp.UI.Core.Proxy.Client
 
         #region Private Methods
 
-        private async Task<ApiResponse> InvokeAPI(object request, string endpointUrl, HttpMethodTypes httpMethod)
+        private async Task<ApiResponse<T>> InvokeAPI<T>(object? request, string endpointUrl, HttpMethodTypes httpMethod)
         {
             _httpClient.Timeout = TimeSpan.FromSeconds(_apiOptions.RequestTimeOut);
 
@@ -49,11 +53,11 @@ namespace WebApp.UI.Core.Proxy.Client
 
             var url = _apiOptions.BaseUrl + endpointUrl;
 
-            HttpContent httpContent = null;
+            HttpContent? httpContent = null;
 
             if (request != null)
             {
-                httpContent = HttpContentHelper.GetHttpRequestContentFromModel(request);
+                httpContent = HttpContentHelper<T>.GetHttpRequestContentFromModel(request);
             }
 
             return await _retryPolicy.ExecuteAsync(async () =>
@@ -68,7 +72,7 @@ namespace WebApp.UI.Core.Proxy.Client
                     _ => throw new InvalidOperationException("Unknown Http Method")
                 };
 
-                return await HttpContentHelper.GetModelFromHttpResponseContent(response.Content);
+                return await HttpContentHelper<T>.GetModelFromHttpResponseContent(response.Content);
             });
         }
 
@@ -102,56 +106,83 @@ namespace WebApp.UI.Core.Proxy.Client
         #endregion
 
 
-        public async Task<ApiResponse> ChangePassword(ChangePasswordRequestDto requestDto)
+        public async Task<ApiResponse<bool>> ChangePasswordAsync(ChangePasswordRequestDto requestDto)
         {
             var url = $"api/v1/auth/change-password";
 
-            var response = await InvokeAPI(requestDto, url, HttpMethodTypes.Patch);
+            var response = await InvokeAPI<bool>(requestDto, url, HttpMethodTypes.Patch);
 
             return response;
         }
 
-        public async Task<ApiResponse> ForgotPassword(AddForgotPasswordRequestDto requestDto)
+        public async Task<ApiResponse<bool>> ForgotPasswordAsync(AddForgotPasswordRequestDto requestDto)
         {
             var url = $"api/v1/auth/forgot-password";
 
-            var response = await InvokeAPI(requestDto, url, HttpMethodTypes.Post);
+            var response = await InvokeAPI<bool>(requestDto, url, HttpMethodTypes.Post);
 
             return response;
         }
 
-        public async Task<ApiResponse> Login(LoginRequestDto requestDto)
+        public async Task<ApiResponse<LoginResponseDto>> LoginAsync(LoginRequestDto requestDto)
         {
             var url = $"api/v1/auth";
 
-            var response = await InvokeAPI(requestDto, url, HttpMethodTypes.Post);
+            var response = await InvokeAPI<LoginResponseDto>(requestDto, url, HttpMethodTypes.Post);
 
             return response;
         }
 
-        public async Task<ApiResponse> Logout(RefreshTokenRequestDto requestDto)
+        public async Task<ApiResponse<object>> LogoutAsync(RefreshTokenRequestDto requestDto)
         {
             var url = $"api/v1/auth/logout";
 
-            var response = await InvokeAPI(requestDto, url, HttpMethodTypes.Post);
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Post);
 
             return response;
         }
 
-        public async Task<ApiResponse> RefreshToken(RefreshTokenRequestDto requestDto)
+        public async Task<ApiResponse<RefreshTokenResponseDto>> RefreshTokenAsync(RefreshTokenRequestDto requestDto)
         {
             var url = $"api/v1/auth/refresh-token";
 
-            var response = await InvokeAPI(requestDto, url, HttpMethodTypes.Post);
+            var response = await InvokeAPI<RefreshTokenResponseDto>(requestDto, url, HttpMethodTypes.Post);
 
             return response;
         }
 
-        public async Task<ApiResponse> ResetPassword(ResetPasswordRequestDto requestDto)
+        public async Task<ApiResponse<bool>> ResetPasswordAsync(ResetPasswordRequestDto requestDto)
         {
             var url = $"api/v1/auth/reset-password";
 
-            var response = await InvokeAPI(requestDto, url, HttpMethodTypes.Patch);
+            var response = await InvokeAPI<bool>(requestDto, url, HttpMethodTypes.Patch);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<CompanyInfoResponseDto>> GetCompanyDetailsAsync()
+        {
+            var url = $"api/v1/company";
+
+            var response = await InvokeAPI<CompanyInfoResponseDto>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<DropdownDto>> GetCompanyDropdownAsync()
+        {
+            var url = $"api/v1/company/dropdown";
+
+            var response = await InvokeAPI<DropdownDto>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> AddOrUpdateCompanyAsync(AddorUpdateCompanyInfoRequestDto requestDto)
+        {
+            var url = $"api/v1/company";
+
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Post);
 
             return response;
         }

@@ -6,14 +6,14 @@ using WebApp.Global.Response;
 
 namespace WebApp.UI.Core.Proxy.Helpers
 {
-    public static class HttpContentHelper
+    public static class HttpContentHelper<T>
     {
         public static HttpContent GetHttpRequestContentFromModel(object model)
         {
             return new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
         }
 
-        public async static Task<ApiResponse> GetModelFromHttpResponseContent(HttpContent content)
+        public async static Task<ApiResponse<T>> GetModelFromHttpResponseContent(HttpContent content)
         {
             try
             {
@@ -21,13 +21,13 @@ namespace WebApp.UI.Core.Proxy.Helpers
 
                 var result = JObject.Parse(stringResult);
 
-                var apiResponse = JsonConvert.DeserializeObject<ApiResponse>(result.ToString());
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<T>>(result.ToString());
 
                 return apiResponse;
             }
             catch
             {
-                return new ApiResponse((int)HttpStatusCode.BadRequest);
+                return new ApiResponse<T>((int)HttpStatusCode.BadRequest);
             }
         }
     }

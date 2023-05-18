@@ -1,17 +1,19 @@
 ﻿using WebApp.DTOs.Auth.Login.Request;
+using WebApp.DTOs.Auth.Login.Response;
 using WebApp.DTOs.Auth.Password.Request;
 using WebApp.DTOs.Auth.RefreshToken.Request;
+using WebApp.DTOs.Auth.RefreshToken.Response;
 using WebApp.Global.Response;
 
 namespace WebApp.UI.Core.Proxy.Contracts
 {
     public interface IAuthService
     {
-        Task<ApiResponse> Login(LoginRequestDto requestDto);
-        Task<ApiResponse> Logout(RefreshTokenRequestDto requestDto);
-        Task<ApiResponse> RefreshToken(RefreshTokenRequestDto requestDto);
-        Task<ApiResponse> ForgotPassword(AddForgotPasswordRequestDto requestDto);
-        Task<ApiResponse> ResetPassword(ResetPasswordRequestDto requestDto);
-        Task<ApiResponse> ChangePassword(ChangePasswordRequestDto requestDto);
+        Task<ApiResponse<LoginResponseDto>> LoginAsync(LoginRequestDto requestDto);
+        Task<ApiResponse<object>> LogoutAsync(RefreshTokenRequestDto requestDto);
+        Task<ApiResponse<RefreshTokenResponseDto>> RefreshTokenAsync(RefreshTokenRequestDto requestDto);
+        Task<ApiResponse<bool>> ForgotPasswordAsync(AddForgotPasswordRequestDto requestDto);
+        Task<ApiResponse<bool>> ResetPasswordAsync(ResetPasswordRequestDto requestDto);
+        Task<ApiResponse<bool>> ChangePasswordAsync(ChangePasswordRequestDto requestDto);
     }
 }

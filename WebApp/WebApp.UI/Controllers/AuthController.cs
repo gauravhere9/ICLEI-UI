@@ -43,7 +43,7 @@ namespace WebApp.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = await _appClient.Login(requestDto);
+                var response = await _appClient.LoginAsync(requestDto);
 
                 if (response.Success)
                 {
@@ -88,7 +88,7 @@ namespace WebApp.UI.Controllers
                         RefreshToken = tokenData.RefreshToken,
                     };
 
-                    var response = await _appClient.Logout(requestDto);
+                    var response = await _appClient.LogoutAsync(requestDto);
 
                     if (response.Success)
                     {

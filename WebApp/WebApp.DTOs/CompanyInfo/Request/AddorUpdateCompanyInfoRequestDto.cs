@@ -26,7 +26,7 @@ namespace WebApp.DTOs.CompanyInfo.Request
         [NoConsecutiveSpace]
         [Phone(ErrorMessage = "Please enter a valid phone number")]
         public string Phone { get; set; } = string.Empty;
-        public string Fax { get; set; } = string.Empty;
-        public string Website { get; set; } = string.Empty;
+        public string? Fax { get; set; } = string.Empty;
+        public string? Website { get; set; } = string.Empty;
     }
 }

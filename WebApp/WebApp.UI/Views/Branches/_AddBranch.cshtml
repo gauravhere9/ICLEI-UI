@@ -1,0 +1,104 @@
+﻿@using WebApp.DTOs.Branches.Request;
+@model AddBranchRequestDto
+
+<!--begin::Form-->
+@*@using (Html.BeginRouteForm("AddBranch", FormMethod.Post, new { @id = "addBranchForm", @class = "form fv-plugins-bootstrap5 fv-plugins-framework" }))
+{*@
+
+<form id="addBranchForm" method="POST">
+
+    <!--begin::Scroll-->
+    <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_header" data-kt-scroll-wrappers="#kt_modal_add_scroll" data-kt-scroll-offset="300px" style="max-height: 460px;">
+        <!--begin::Col-->
+        <div class="fv-row mb-7 fv-plugins-icon-container">
+            <label class="required fw-semibold fs-6 mb-2">Company Name</label>
+
+            <!--begin::Option-->
+            @if (ViewBag.Companies != null)
+            {
+                foreach (var item in ViewBag.Companies)
+                {
+                    <div class="col-md-6 col-lg-12 col-xxl-6">
+                        <label class="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6" data-kt-button="true">
+                            <!--begin::Radio-->
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                @* @Html.RadioButtonFor(x => x.CompanyId , true, new{@class="form-check-input",  @type="radio", @name="CompanyId", @tabindex=1})*@
+
+                                <input class="form-check-input" type="radio" name="CompanyId" value="@item.DataValue" checked tabindex="1">
+
+                            </span>
+                            <!--end::Radio-->
+                            <!--begin::Info-->
+                            <span class="ms-5">
+                                <span class="fs-4 fw-bold text-gray-800 mb-2 d-block">@item.DataText</span>
+                                @*<span class="fw-semibold fs-7 text-gray-600">Withdraw money to your bank account per transaction under $50,000 budget</span>*@
+                            </span>
+                            <!--end::Info-->
+                        </label>
+                        <!--end::Option-->
+                    </div>
+                }
+            }
+
+            <span id="errorCompanyId" class="text-danger"></span>
+        </div>
+        <!--end::Col-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-7 fv-plugins-icon-container">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Branch Code</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            @Html.TextBoxFor(m=> m.BranchCode, new { @type="text", @name="BranchCode", @class="form-control form-control-solid mb-3 mb-lg-0",
+            @placeholder="Branch code", @value="", @tabindex=2})
+
+            <!--end::Input-->
+
+            <span id="errorBranchCode" class="text-danger"></span>
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-7 fv-plugins-icon-container">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Location</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            @Html.TextBoxFor(m=> m.Location, new { @type="text", @name="Location", @class="form-control form-control-solid mb-3 mb-lg-0",
+            @placeholder="Location", @value="", @tabindex=3})
+
+            <!--end::Input-->
+
+            <span id="errorLocation" class="text-danger"></span>
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="fv-row mb-7 fv-plugins-icon-container">
+            <!--begin::Label-->
+            <label class="required fw-semibold fs-6 mb-2">Address</label>
+            <!--end::Label-->
+            <!--begin::Input-->
+            @Html.TextAreaFor(m=> m.Address, new { @type="text", @name="Address", @class="form-control form-control-solid mb-3 mb-lg-0",
+            @placeholder="Branch address", @value="", @tabindex=4})
+
+            <!--end::Input-->
+
+            <span id="errorAddress" class="text-danger"></span>
+        </div>
+        <!--end::Input group-->
+    </div>
+    <!--end::Scroll-->
+    <!--begin::Actions-->
+    <div class="text-center pt-15">
+        <button type="button" class="btn btn-light me-3" data-bs-toggle="modal" tabindex=5>Discard</button>
+        <button id="btnSubmit" type="button" class="btn btn-primary" tabindex=6>
+            <span class="indicator-label">Submit</span>
+            <span class="indicator-progress">
+                Please wait...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+        </button>
+    </div>
+    <!--end::Actions-->
+
+</form>
+@*} *@

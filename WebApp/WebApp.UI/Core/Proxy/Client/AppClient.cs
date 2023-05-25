@@ -5,10 +5,19 @@ using WebApp.DTOs.Auth.Login.Response;
 using WebApp.DTOs.Auth.Password.Request;
 using WebApp.DTOs.Auth.RefreshToken.Request;
 using WebApp.DTOs.Auth.RefreshToken.Response;
+using WebApp.DTOs.Auth.Response;
+using WebApp.DTOs.Branches.Request;
+using WebApp.DTOs.Branches.Response;
 using WebApp.DTOs.CompanyInfo.Request;
 using WebApp.DTOs.CompanyInfo.Response;
+using WebApp.DTOs.Designation.Request;
+using WebApp.DTOs.Designation.Response;
+using WebApp.DTOs.User.Request;
+using WebApp.DTOs.User.Response;
+using WebApp.Global.Extensions;
 using WebApp.Global.Options;
 using WebApp.Global.Response;
+using WebApp.Global.Shared;
 using WebApp.Global.Shared.DTOs;
 using WebApp.UI.Core.Proxy.Helpers;
 using static WebApp.Global.Constants.Enumurations;
@@ -27,7 +36,6 @@ namespace WebApp.UI.Core.Proxy.Client
 
         #endregion
 
-
         #region Constructor
 
         public AppClient(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor, ApiOptions apiOptions)
@@ -41,7 +49,6 @@ namespace WebApp.UI.Core.Proxy.Client
         }
 
         #endregion
-
 
         #region Private Methods
 
@@ -105,7 +112,7 @@ namespace WebApp.UI.Core.Proxy.Client
 
         #endregion
 
-
+        #region Auth Service
         public async Task<ApiResponse<bool>> ChangePasswordAsync(ChangePasswordRequestDto requestDto)
         {
             var url = $"api/v1/auth/change-password";
@@ -160,6 +167,10 @@ namespace WebApp.UI.Core.Proxy.Client
             return response;
         }
 
+        #endregion
+
+        #region Company Service
+
         public async Task<ApiResponse<CompanyInfoResponseDto>> GetCompanyDetailsAsync()
         {
             var url = $"api/v1/company";
@@ -169,11 +180,11 @@ namespace WebApp.UI.Core.Proxy.Client
             return response;
         }
 
-        public async Task<ApiResponse<DropdownDto>> GetCompanyDropdownAsync()
+        public async Task<ApiResponse<IList<DropdownDto>>> GetCompanyDropdownAsync()
         {
             var url = $"api/v1/company/dropdown";
 
-            var response = await InvokeAPI<DropdownDto>(null, url, HttpMethodTypes.Get);
+            var response = await InvokeAPI<IList<DropdownDto>>(null, url, HttpMethodTypes.Get);
 
             return response;
         }
@@ -186,5 +197,222 @@ namespace WebApp.UI.Core.Proxy.Client
 
             return response;
         }
+
+        #endregion
+
+        #region Branch Service
+
+        public async Task<ApiResponse<object>> AddBranchAsync(AddBranchRequestDto requestDto)
+        {
+            var url = $"api/v1/branch";
+
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Post);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> UpdateBranchAsync(UpdateBranchRequestDto requestDto)
+        {
+            var url = $"api/v1/branch";
+
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Put);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> UpdateBranchStatusAsync(int id)
+        {
+            var url = $"api/v1/branch/{id}";
+
+            var response = await InvokeAPI<object>(null, url, HttpMethodTypes.Patch);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> DeleteBranchAsync(int id)
+        {
+            var url = $"api/v1/branch/{id}";
+
+            var response = await InvokeAPI<object>(null, url, HttpMethodTypes.Delete);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<PagedResponseDto<BranchResponseDto>>> GetBranchesWithPSS(BranchSearchRequestDto requestDto)
+        {
+            var queryString = requestDto.GetQueryString();
+
+            var url = $"api/v1/branch?{queryString}";
+
+            var response = await InvokeAPI<PagedResponseDto<BranchResponseDto>>(requestDto, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<BranchResponseDto>> GetBranchDetailsAsync(int id)
+        {
+            var url = $"api/v1/branch/{id}";
+
+            var response = await InvokeAPI<BranchResponseDto>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<DropdownDto>> GetBranchDropdownAsync(int companyId)
+        {
+            var url = $"api/v1/branch/{companyId}/dropdown";
+
+            var response = await InvokeAPI<DropdownDto>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        #endregion
+
+        #region Designation Service
+
+        public async Task<ApiResponse<object>> AddDesignationAsync(AddDesignationRequestDto requestDto)
+        {
+            var url = $"pi/v1/designations";
+
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Post);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> UpdateDesignationAsync(UpdateDesignationRequestDto requestDto)
+        {
+            var url = $"api/v1/designations";
+
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Put);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> UpdateDesignationStatusAsync(int id)
+        {
+            var url = $"api/v1/designations/{id}";
+
+            var response = await InvokeAPI<object>(null, url, HttpMethodTypes.Patch);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> DeleteDesignationAsync(int id)
+        {
+            var url = $"api/v1/designations/{id}";
+
+            var response = await InvokeAPI<object>(null, url, HttpMethodTypes.Delete);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<PagedResponseDto<DesignationResponseDto>>> GetDesignationesWithPSS(DesignationSearchRequestDto requestDto)
+        {
+            var url = $"api/v1/designations";
+
+            var response = await InvokeAPI<PagedResponseDto<DesignationResponseDto>>(requestDto, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<DesignationResponseDto>> GetDesignationDetailsAsync(int id)
+        {
+            var url = $"api/v1/designations/{id}";
+
+            var response = await InvokeAPI<DesignationResponseDto>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<DropdownDto>> GetDesignationDropdownAsync()
+        {
+            var url = $"api/v1/designations/dropdown";
+
+            var response = await InvokeAPI<DropdownDto>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        #endregion
+
+        #region Master Service
+        public async Task<ApiResponse<MasterResponseDto>> GetMasterDropdown()
+        {
+            var url = $"api/v1/masters";
+
+            var response = await InvokeAPI<MasterResponseDto>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        #endregion
+
+        #region User Service
+
+        public async Task<ApiResponse<object>> AddUserAsync(AddSiteUserRequestDto requestDto)
+        {
+            var url = $"api/v1/users";
+
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Post);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> UpdateUserAsync(UpdateSiteUserRequestDto requestDto)
+        {
+            var url = $"api/v1/users";
+
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Put);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> UpdateUserStatusAsync(int id)
+        {
+            var url = $"api/v1/users/{id}";
+
+            var response = await InvokeAPI<object>(null, url, HttpMethodTypes.Patch);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> DeleteUserAsync(int id)
+        {
+            var url = $"api/v1/users/{id}";
+
+            var response = await InvokeAPI<object>(null, url, HttpMethodTypes.Delete);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<PagedResponseDto<SiteUserResponseDto>>> GetUserWithPSS(SearchSiteUserRequestDto requestDto)
+        {
+            var url = $"api/v1/users";
+
+            var response = await InvokeAPI<PagedResponseDto<SiteUserResponseDto>>(requestDto, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<SiteUserResponseDto>> GetUserDetailsAsync(int id)
+        {
+            var url = $"api/v1/users/{id}";
+
+            var response = await InvokeAPI<SiteUserResponseDto>(null, url, HttpMethodTypes.Patch);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<DropdownDto>> GetUserDropdownAsync(int branchId)
+        {
+            var url = $"api/v1/users/{branchId}/dropdown";
+
+            var response = await InvokeAPI<DropdownDto>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        #endregion
     }
 }

@@ -12,7 +12,7 @@
         public static readonly string SUCCESS = "Success";
         public static readonly string FAILED = "Failed";
         public static readonly string NO_RECORD_FOUND = "No record found";
-        public static readonly string IS_NOT_FOUND = "{0} is not found";
+        public static readonly string IS_NOT_FOUND = "{0} is/are not found";
         public static readonly string EMAIL_SENT = "Email is sent successfully";
         public static readonly string EMAIL_NOT_SENT = "Email is not sent";
         public static readonly string USER_EXIST = "User is already exist";

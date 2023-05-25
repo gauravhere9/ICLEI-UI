@@ -8,7 +8,7 @@ namespace WebApp.UI.Core.Proxy.Contracts
     public interface ICompanyService
     {
         Task<ApiResponse<CompanyInfoResponseDto>> GetCompanyDetailsAsync();
-        Task<ApiResponse<DropdownDto>> GetCompanyDropdownAsync();
+        Task<ApiResponse<IList<DropdownDto>>> GetCompanyDropdownAsync();
         Task<ApiResponse<object>> AddOrUpdateCompanyAsync(AddorUpdateCompanyInfoRequestDto requestDto);
     }
 }

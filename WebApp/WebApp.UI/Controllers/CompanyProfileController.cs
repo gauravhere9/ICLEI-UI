@@ -59,7 +59,7 @@ namespace WebApp.UI.Controllers
 
                 if (response.Success)
                 {
-                    ViewBag.JavaScriptFunction = string.Format("ShowSuccessSwal('{0}', '');", response.Message);
+                    ViewBag.JavaScriptFunction = string.Format("ShowSuccessSwal('{0}', '/company-profile');", response.Message);
                 }
                 else
                 {

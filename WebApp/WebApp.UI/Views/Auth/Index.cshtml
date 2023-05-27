@@ -40,16 +40,12 @@
                     <div class="fv-row mb-8">
                         <!--begin::Email-->
                     @Html.TextBoxFor(m=> m.Username, new {@type="text", @placeholder="Username", @name="Username", @autocomplete="off", @class="form-control bg-transparent"})
-
-                        @*<input type="text" placeholder="Username" name="Username" autocomplete="off" class="form-control bg-transparent" asp-for="Username" />*@
                         <!--end::Email-->
                     </div>
                     <!--end::Input group=-->
                     <div class="fv-row mb-8">
                         <!--begin::Password-->
                     @Html.PasswordFor(m=> m.Password, new {@type="password", @placeholder="Password", @name="Password", @autocomplete="off", @class="form-control bg-transparent"})
-
-                        @*<input type="password" placeholder="Password" name="Password" autocomplete="off" class="form-control bg-transparent" asp-for="Password" />*@
                         <!--end::Password-->
                     </div>
                     <!--end::Input group=-->
@@ -85,11 +81,11 @@
 
                 <!--begin::Links-->
                 <div class="d-flex fw-semibold fs-base gap-5">
-                    <a href="../../demo1/dist/pages/team.html" target="_blank" class="text-gray-700">Terms & Conditions</a>
+                    <a href="forgot-password" target="_blank" class="text-gray-700">Terms & Conditions</a>
                     <span class="text-gray-700">|</span>
-                    <a href="../../demo1/dist/pages/pricing/column.html" target="_blank" class="text-gray-700">Policy</a>
+                    <a href="forgot-password" target="_blank" class="text-gray-700">Policy</a>
                     <span class="text-gray-700">|</span>
-                    <a href="../../demo1/dist/pages/contact.html" target="_blank" class="text-gray-700">Contact Us</a>
+                    <a href="forgot-password" target="_blank" class="text-gray-700">Contact Us</a>
                 </div>
                 <!--end::Links-->
             </div>
@@ -99,29 +95,4 @@
     </div>
     <!--end::Wrapper-->
 </div>
-
  
-   @* @if (ViewData["JavaScriptFunction"] != null)
-    {
-        <script type="text/javascript">
-            @Html.Raw(ViewBag.JavaScriptFunction)
-        </script>
-    }
-
-    <script type="text/javascript">
-
-        function successSwal(message) {
-            var t = document.querySelector("#kt_sign_in_submit");
-
-            Swal.fire(
-                {
-                    text: message,
-                    icon: "success",
-                    buttonsStyling: !1,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: { confirmButton: "btn btn-primary" }
-                });
-            //.then((function (t) { t.isConfirmed && o.hide() }));
-        }
-    </script>
-*@

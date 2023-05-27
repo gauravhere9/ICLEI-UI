@@ -21,7 +21,7 @@ namespace WebApp.Global.Helpers
 
             if (isDefaultColumn == true || sortableColumns.Count == 1)
             {
-                OrderBy = column;
+                OrderBy = $"{column}_Desc";
                 Direction = "Desc";
             }
         }

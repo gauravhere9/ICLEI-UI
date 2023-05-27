@@ -1,0 +1,60 @@
+﻿@using WebApp.Global.Helpers;
+@model PagerHelper
+
+
+<div class="row">
+    @if (Model.TotalItems > 0)
+    {
+        <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
+            <span>
+                Showing page @Model.CurrentPage of @Model.TotalPages pages (out of total @Model.TotalItems records)
+            </span>
+        </div>
+    }
+
+    @if (Model.TotalPages > 0)
+    {
+        <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
+            <div class="dataTables_paginate paging_simple_numbers" id="kt_table_users_paginate">
+                <ul class="pagination">
+
+                    @if (Model.CurrentPage > 1)
+                    {
+                        <li class="paginate_button page-item next" id="kt_table_users_next">
+                            <a asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pno="1" asp-route-pg="true" aria-controls="kt_table_users" data-dt-idx="4" tabindex="0" class="page-link">
+                                First
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item next" id="kt_table_users_next">
+                            <a asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pno="@(Model.CurrentPage - 1)" asp-route-pg="true" aria-controls="kt_table_users" data-dt-idx="4" tabindex="0" class="page-link">
+                                Previous
+                            </a>
+                        </li>
+                    }
+
+                    @for (var pge = Model.StartPage; pge <= Model.EndPage; pge++)
+                    {
+                        <li class="paginate_button page-item @(pge == Model.CurrentPage ? "active" : "")">
+                            <a asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pno="@pge" asp-route-pg="true" aria-controls="kt_table_users" data-dt-idx="1" tabindex="0" class="page-link">@pge</a>
+                        </li>
+                    }
+
+                    @if (Model.CurrentPage < Model.TotalPages)
+                    {
+                        <li class="paginate_button page-item next" id="kt_table_users_next">
+                            <a asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pno="@(Model.CurrentPage + 1)" asp-route-pg="true" aria-controls="kt_table_users" data-dt-idx="4" tabindex="0" class="page-link">
+                                Next
+                            </a>
+                        </li>
+                        <li class="paginate_button page-item next" id="kt_table_users_next">
+                            <a asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pno="@(Model.TotalPages)" asp-route-pg="true" aria-controls="kt_table_users" data-dt-idx="4" tabindex="0" class="page-link">
+                                Last
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+</div>

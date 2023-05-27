@@ -1,4 +1,5 @@
-﻿var AddOrUpdate = function (id) {
+﻿// LAUNCH THE ADD OR UPDATE POPUP
+var AddOrUpdate = function (id) {
 
     resetControls();
 
@@ -6,22 +7,22 @@
     if (id > 0) {
         $('#title').html("Edit Branch");
     }
-    else {
-        $("#addModelBody").load(url, function (response, status, xhr) {
-            if (status == "error") {
-                var msg = "Sorry but there was an error: ";
-                /* $("#error").html(msg + xhr.status + " " + xhr.statusText);*/
 
-                ShowErrorSwal(msg + xhr.status + " " + xhr.statusText);
-            }
-            else {
-                $("#kt_modal_branch").modal("show");
-            }
+    $("#branchModelBody").load(url, function (response, status, xhr) {
+        if (status == "error") {
+            var msg = "Sorry but there was an error: ";
+            /* $("#error").html(msg + xhr.status + " " + xhr.statusText);*/
 
-        });
-    }
+            ShowErrorSwal(msg + xhr.status + " " + xhr.statusText);
+        }
+        else {
+            $("#kt_modal_branch").modal("show");
+        }
+
+    });
 };
 
+// RESET THE CONTROLS
 var resetControls = function (id) {
     $("BranchCode").val('');
     $("Address").val('');
@@ -37,38 +38,7 @@ var resetControls = function (id) {
     }
 }
 
-$(document).ready(function () {
-    $("#BranchCode").keyup(function () {
-        if ($.trim($('#BranchCode').val()) === '') {
-            $("#errorBranchCode").text("Branch code is required");
-        }
-        else {
-            $("#errorBranchCode").text("");
-        }
-    });
-
-    $("#Address").keyup(function () {
-        if ($.trim($('#Address').val()) === '') {
-            $("#errorAddress").text("Address is required");
-        }
-        else {
-            $("#errorAddress").text("");
-        }
-    });
-
-
-    $("#Location").keyup(function () {
-        if ($.trim($('#Location').val()) === '') {
-            $("#errorLocation").text("Location is required");
-        }
-        else {
-            $("#errorLocation").text("");
-        }
-    });
-
-});
-
-
+// ON SUBMIT VALIDATIONS
 var validations = function () {
     var isValid = true;
 
@@ -112,8 +82,9 @@ var validations = function () {
 
 }
 
-$('body').on('click', "#btnSubmit", function () {
-
+// ADD THE RECORD
+$('body').on('click', "#btnSubmit", function (e) {
+    e.preventDefault();
     if (validations()) {
 
         var myformdata = $("#addBranchForm").serialize();
@@ -130,12 +101,12 @@ $('body').on('click', "#btnSubmit", function () {
                     }
                     else {
                         $("#kt_modal_branch").modal("hide");
-                        ShowSuccessSwal("Branch is added successfully !", "/branches");
+                        ShowSuccessSwal("Branch is added successfully !", "/branches?sortExpression=Id_Desc");
                     }
                 }
             },
             error: function (errormessage) {
-                console.log(errormessage.responseText);
+                
 
                 ShowErrorSwal("Error");
             }
@@ -143,7 +114,7 @@ $('body').on('click', "#btnSubmit", function () {
     }
 });
 
-
+//DELETE THE RECORD
 var deleteBranch = function (id) {
     if (id > 0) {
         $.ajax({
@@ -163,7 +134,7 @@ var deleteBranch = function (id) {
                 }
             },
             error: function (errormessage) {
-                console.log(errormessage.responseText);
+                
 
                 ShowErrorSwal("Error");
             }
@@ -174,6 +145,7 @@ var deleteBranch = function (id) {
     }
 }
 
+//DELETE THE RECORD - CONFIRMATION
 var deleteConfirmation = function (id) {
 
     if (id > 0) {
@@ -210,12 +182,12 @@ var deleteConfirmation = function (id) {
     }
 }
 
-
+// CHANGE THE RECORD STATUS - CONFIRMATION
 var changeStatusConfirmation = function (id) {
 
     if (id > 0) {
 
-        
+
         Swal.fire({
             //text: "Are you sure you want to delete?",
             //icon: "warning",
@@ -248,7 +220,7 @@ var changeStatusConfirmation = function (id) {
     }
 }
 
-
+// CHANGE THE RECORD STATUS
 var changeBranchStatus = function (id) {
     if (id > 0) {
         $.ajax({
@@ -268,7 +240,7 @@ var changeBranchStatus = function (id) {
                 }
             },
             error: function (errormessage) {
-                console.log(errormessage.responseText);
+               
 
                 ShowErrorSwal("Error");
             }
@@ -278,3 +250,42 @@ var changeBranchStatus = function (id) {
         ShowErrorSwal("Branch id is not valid");
     }
 }
+
+// UPDATE THE RECORD
+var updateBranch = function (id) {
+
+    if (id > 0) {
+
+        if (validations()) {
+
+            var myformdata = $("#updateBranchForm").serialize();
+
+            $.ajax({
+                type: "PUT",
+                url: "/branches/updatebranch",
+                data: myformdata,
+                success: function (result) {
+
+                    if (result != null) {
+                        if (result.statuscode != 200) {
+                            ShowErrorSwal(result.message);
+                        }
+                        else {
+                            $("#kt_modal_branch").modal("hide");
+                            ShowSuccessSwal("Branch is updated successfully !", "/branches");
+                        }
+                    }
+                },
+                error: function (errormessage) {
+                    
+
+                    ShowErrorSwal("Error");
+                }
+            });
+        }
+    }
+    else {
+        ShowErrorSwal("Branch id is not valid");
+    }
+};
+ 

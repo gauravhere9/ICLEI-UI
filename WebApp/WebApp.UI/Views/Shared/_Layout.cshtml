@@ -4,16 +4,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <base href="/" />
+    
     <title>ICLEI</title>
     <meta charset="utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
+   @* <meta name="description" content="" />
+    <meta name="keywords" content="" />*@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="" />
-    <meta property="og:url" content="" />
+    @*<meta property="og:title" content="" />
+    <meta property="og:url" content="" />*@
     <meta property="og:site_name" content="ICLEI" />
 
     <link rel="icon" href="assets/media/logos/logo.png" />
@@ -32,6 +32,12 @@
         }
 
         .btn-backgroud-none-border-none {
+            border: none;
+            background: none;
+            font-weight: 500;
+        }
+        
+        .btn-backgroud-none-border-none-width-100 {
             border: none;
             background: none;
             font-weight: 500;
@@ -252,7 +258,7 @@
                                     {
                                         <div class="menu-item px-5">
 
-                                            <button type="submit" class="menu-link px-5 btn-backgroud-none-border-none">Sign Out</button>
+                                            <button type="submit" class="menu-link px-5 btn-backgroud-none-border-none-width-100">Sign Out</button>
 
                                         </div>
                                     }
@@ -554,7 +560,7 @@
     <script src="assets/js/scripts.bundle.js" asp-append-version="true"></script>
     <script src="assets/js/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="assets/js/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
-    <script src="lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+ 
     <!--end::Global Javascript Bundle-->
 
     <script type="text/javascript">

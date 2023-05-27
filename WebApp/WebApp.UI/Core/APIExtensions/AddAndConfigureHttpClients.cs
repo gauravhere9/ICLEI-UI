@@ -30,11 +30,16 @@ namespace WebApp.UI.Core.APIExtensions
 
         private static void SetAuthorizationHeaderToken(IHttpContextAccessor httpContextAccessor, HttpClient httpClient)
         {
-            string token = GetAuthenticationTokenFromSession(httpContextAccessor);
+            var authHeader = httpClient.DefaultRequestHeaders.Authorization;
 
-            if (!string.IsNullOrEmpty(token))
+            if (authHeader == null)
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                string token = GetAuthenticationTokenFromSession(httpContextAccessor);
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                }
             }
         }
 

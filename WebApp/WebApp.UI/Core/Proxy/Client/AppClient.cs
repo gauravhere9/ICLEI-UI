@@ -1,4 +1,5 @@
-﻿using Polly;
+﻿using Microsoft.AspNetCore.Authentication;
+using Polly;
 using Polly.Retry;
 using WebApp.DTOs.Auth.Login.Request;
 using WebApp.DTOs.Auth.Login.Response;
@@ -54,8 +55,6 @@ namespace WebApp.UI.Core.Proxy.Client
 
         private async Task<ApiResponse<T>> InvokeAPI<T>(object? request, string endpointUrl, HttpMethodTypes httpMethod)
         {
-            _httpClient.Timeout = TimeSpan.FromSeconds(_apiOptions.RequestTimeOut);
-
             SetAuthorizationHeaderToken(_httpContextAccessor, _httpClient);
 
             var url = _apiOptions.BaseUrl + endpointUrl;
@@ -85,11 +84,16 @@ namespace WebApp.UI.Core.Proxy.Client
 
         private void SetAuthorizationHeaderToken(IHttpContextAccessor httpContextAccessor, HttpClient httpClient)
         {
-            string token = GetAuthenticationTokenFromSession(httpContextAccessor);
+            var authHeader = httpClient.DefaultRequestHeaders.Authorization;
 
-            if (!string.IsNullOrEmpty(token))
+            if (authHeader == null)
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                string token = GetAuthenticationTokenFromSession(httpContextAccessor);
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                }
             }
         }
 

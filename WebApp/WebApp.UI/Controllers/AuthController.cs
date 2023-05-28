@@ -28,8 +28,8 @@ namespace WebApp.UI.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("")]
-        [Route("login")]
+        [Route("", Name = "LoginDefault")]
+        [Route("login", Name = "Login")]
         public async Task<IActionResult> Index()
         {
             return await Task.Run(() => View());

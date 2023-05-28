@@ -564,7 +564,7 @@
     <!--end::Global Javascript Bundle-->
 
     <script type="text/javascript">
-        function ShowErrorSwal(message) {
+        function ShowErrorSwal(message, isReloadRequired = false) {
             Swal.fire(
                 {
                     text: message,
@@ -572,7 +572,11 @@
                     buttonsStyling: !1,
                     confirmButtonText: "Ok, got it!",
                     customClass: { confirmButton: "btn btn-primary" }
-                });
+                }).then((function (t) {
+                    if (t.isConfirmed && isReloadRequired) {
+                        window.location.reload(true);
+                    }
+                }));
         };
 
         function ShowSuccessSwal(message, redirectUrl) {

@@ -1,23 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text;
-using WebApp.DTOs.Branches.Request;
+using WebApp.DTOs.Designation.Request;
 using WebApp.Global.Helpers;
 using WebApp.Global.Options;
 using WebApp.Global.Shared;
 using WebApp.UI.Core.Proxy.Client;
-using WebApp.UI.Models.Branch;
+using WebApp.UI.Models.Designation;
 
 namespace WebApp.UI.Controllers
 {
-    [Route("/branches")]
-    public class BranchesController : BaseController
+    [Route("/designations")]
+    public class DesignationsController : BaseController
     {
         private readonly ILogger<AuthController> _logger;
         private readonly IAppClient _appClient;
         private readonly ApplicationOptions _applicationOptions;
         private readonly AuthenticationOptions _authenticationOptions;
-        public BranchesController(ILogger<AuthController> logger, IAppClient appClient, ApplicationOptions applicationOptions, AuthenticationOptions authenticationOptions) : base(applicationOptions, authenticationOptions)
+        public DesignationsController(ILogger<AuthController> logger, IAppClient appClient, ApplicationOptions applicationOptions, AuthenticationOptions authenticationOptions) : base(applicationOptions, authenticationOptions)
         {
             _logger = logger;
             _appClient = appClient;
@@ -26,25 +26,22 @@ namespace WebApp.UI.Controllers
         }
 
         [HttpGet]
-        [Route("", Name = "BranchIndex")]
-        public async Task<IActionResult> Index([FromQuery] SearchBranch searchBranch, string srtex = "", int pno = 1, bool pg = false, bool srt = false, bool rst = false)
+        [Route("", Name = "DesignationIndex")]
+        public async Task<IActionResult> Index([FromQuery] SearchDesignation searchDesignation, string srtex = "", int pno = 1, bool pg = false, bool srt = false, bool rst = false)
         {
             if (rst)
             {
-                HttpContext.Session.SetString("BranchCode", "");
-                HttpContext.Session.SetString("Location", "");
+                HttpContext.Session.SetString("Name", "");
                 HttpContext.Session.SetString("SortExpression", "");
-                HttpContext.Session.SetInt32("CompanyId", 0);
                 HttpContext.Session.SetInt32("Page", pno);
             }
 
-            await BindCompanies();
             int pageSize;
-            BranchSearchRequestDto requestDto;
+            DesignationSearchRequestDto requestDto;
 
-            PrepareSearchInputAndSetSessions(searchBranch, pg, srt, ref srtex, ref pno, out pageSize, out requestDto);
+            PrepareSearchInputAndSetSessions(searchDesignation, pg, srt, ref srtex, ref pno, out pageSize, out requestDto);
 
-            var result = await _appClient.GetBranchesWithPSS(requestDto);
+            var result = await _appClient.GetDesignationesWithPSS(requestDto);
 
             if (result.Success)
             {
@@ -67,35 +64,30 @@ namespace WebApp.UI.Controllers
             return await Task.Run(() => View());
         }
 
-        private void PrepareSearchInputAndSetSessions(SearchBranch searchBranch, bool paging, bool sorting, ref string sortExpression, ref int pageno, out int pageSize, out BranchSearchRequestDto requestDto)
+        private void PrepareSearchInputAndSetSessions(SearchDesignation searchDesignation, bool paging, bool sorting, ref string sortExpression, ref int pageno, out int pageSize, out DesignationSearchRequestDto requestDto)
         {
-            PrepareSessionVariables(searchBranch, paging, sorting, ref sortExpression, ref pageno);
+            PrepareSessionVariables(searchDesignation, paging, sorting, ref sortExpression, ref pageno);
 
             SortingHelper sortingHelper = PrepareSortingVariables(sortExpression);
 
             pageSize = DefaultPagination.PageSize;
 
-            requestDto = new BranchSearchRequestDto()
+            requestDto = new DesignationSearchRequestDto()
             {
                 OrderBy = sortingHelper.OrderBy,
                 OrderByDirection = sortingHelper.Direction,
                 PageSize = pageSize,
                 PageIndex = pageno,
-                BranchCode = searchBranch.bcode,
-                Location = searchBranch.loc,
-                CompanyId = searchBranch.comp ?? 0
-
+                Name = searchDesignation.name ?? ""
             };
         }
 
         private SortingHelper PrepareSortingVariables(string sortExpression)
         {
             SortingHelper sorting = new SortingHelper();
-            sorting.AddColumn("CompanyName");
             sorting.AddColumn("Id", true);
-            sorting.AddColumn("BranchCode");
-            sorting.AddColumn("Location");
-            sorting.AddColumn("Address");
+            sorting.AddColumn("Name");
+            sorting.AddColumn("Description");
             sorting.AddColumn("CreatedDate");
             sorting.ApplySort(sortExpression);
 
@@ -105,65 +97,25 @@ namespace WebApp.UI.Controllers
             return sorting;
         }
 
-        private void PrepareSessionVariables(SearchBranch searchBranch, bool paging, bool sorting, ref string sortExpression, ref int pageno)
+        private void PrepareSessionVariables(SearchDesignation searchDesignation, bool paging, bool sorting, ref string sortExpression, ref int pageno)
         {
-            if (!string.IsNullOrWhiteSpace(searchBranch.bcode))
+            if (!string.IsNullOrWhiteSpace(searchDesignation.name))
             {
-                HttpContext.Session.SetString("BranchCode", searchBranch.bcode);
+                HttpContext.Session.SetString("Name", searchDesignation.name);
             }
             else
             {
                 if (paging || sorting)
                 {
-                    var bCode = HttpContext.Session.GetString("BranchCode");
+                    var bCode = HttpContext.Session.GetString("Name");
 
                     if (!string.IsNullOrWhiteSpace(bCode))
                     {
-                        searchBranch.bcode = bCode;
+                        searchDesignation.name = bCode;
                     }
                 }
 
-                HttpContext.Session.SetString("BranchCode", searchBranch.bcode ?? "");
-            }
-
-
-            if (!string.IsNullOrWhiteSpace(searchBranch.loc))
-            {
-                HttpContext.Session.SetString("Location", searchBranch.loc);
-            }
-            else
-            {
-                if (paging || sorting)
-                {
-                    var location = HttpContext.Session.GetString("Location");
-
-                    if (!string.IsNullOrWhiteSpace(location))
-                    {
-                        searchBranch.loc = location;
-                    }
-                }
-
-                HttpContext.Session.SetString("Location", searchBranch.loc ?? "");
-
-            }
-
-
-            if (searchBranch.comp > 0)
-            {
-                HttpContext.Session.SetInt32("CompanyId", searchBranch.comp ?? 0);
-            }
-            else
-            {
-                if (paging || sorting)
-                {
-                    var cId = HttpContext.Session.GetInt32("CompanyId");
-
-                    if (cId > 0)
-                    {
-                        searchBranch.comp = cId;
-                    }
-                }
-                HttpContext.Session.SetInt32("CompanyId", searchBranch.comp ?? 0);
+                HttpContext.Session.SetString("Name", searchDesignation.name ?? "");
             }
 
             if (!string.IsNullOrWhiteSpace(sortExpression))
@@ -198,7 +150,9 @@ namespace WebApp.UI.Controllers
             }
         }
 
-        private async Task BindCompanies()
+        [HttpGet]
+        [Route("{id}", Name = "AddOrUpdateDesignation")]
+        public async Task<IActionResult> AddOrUpdateDesignation([FromRoute] int id)
         {
             ViewBag.Companies = null;
 
@@ -208,54 +162,43 @@ namespace WebApp.UI.Controllers
             {
                 ViewBag.Companies = companies.Data;
             }
-        }
-
-        [HttpGet]
-        [Route("{id}", Name = "AddOrUpdate")]
-        public async Task<IActionResult> AddOrUpdate([FromRoute] int id)
-        {
-            await BindCompanies();
 
             if (id <= 0)
             {
-                AddBranchRequestDto requestDto = new AddBranchRequestDto();
-                return await Task.Run(() => PartialView("_AddBranch", requestDto));
+                AddDesignationRequestDto requestDto = new AddDesignationRequestDto();
+                return await Task.Run(() => PartialView("_AddDesignation", requestDto));
             }
             else
             {
-                var branch = await _appClient.GetBranchDetailsAsync(id);
-                UpdateBranchRequestDto requestDto = new UpdateBranchRequestDto();
+                var designation = await _appClient.GetDesignationDetailsAsync(id);
+                UpdateDesignationRequestDto requestDto = new UpdateDesignationRequestDto();
 
-                if (branch.Success)
+                if (designation.Success)
                 {
-                    if (branch.Data != null)
+                    if (designation.Data != null)
                     {
-                        requestDto.Id = branch.Data.Id;
-                        requestDto.BranchCode = branch.Data.BranchCode;
-                        requestDto.Address = branch.Data.Address;
-                        requestDto.Location = branch.Data.Location;
-                        requestDto.CompanyId = branch.Data.CompanyId;
+                        requestDto.Id = designation.Data.Id;
+                        requestDto.Name = designation.Data.Name;
+                        requestDto.Description = designation.Data.Description;
                     }
                 }
 
-                return await Task.Run(() => PartialView("_UpdateBranch", requestDto));
+                return await Task.Run(() => PartialView("_UpdateDesignation", requestDto));
             }
         }
 
         [HttpPost]
-        [Route("addbranch", Name = "AddBranch")]
-        public async Task<object> AddBranch(AddBranchRequestDto requestDto)
+        [Route("adddesignation", Name = "AddDesignation")]
+        public async Task<object> AddDesignation(AddDesignationRequestDto requestDto)
         {
             StringBuilder sb = new StringBuilder();
 
             if (ModelState.IsValid)
             {
-                var result = await _appClient.AddBranchAsync(requestDto);
+                var result = await _appClient.AddDesignationAsync(requestDto);
 
                 if (result.Success)
                 {
-                    //ViewBag.JavaScriptFunction = string.Format("ShowSuccessSwal('{0}', '/branches');", result.Message);
-
                     return new { message = result.Message ?? "Success", statuscode = result.StatusCode };
                 }
                 else
@@ -284,14 +227,14 @@ namespace WebApp.UI.Controllers
         }
 
         [HttpPut]
-        [Route("updatebranch", Name = "UpdateBranch")]
-        public async Task<object> UpdateBranch(UpdateBranchRequestDto requestDto)
+        [Route("updatedesignation", Name = "UpdateDesignation")]
+        public async Task<object> UpdateDesignation(UpdateDesignationRequestDto requestDto)
         {
             StringBuilder sb = new StringBuilder();
 
             if (ModelState.IsValid)
             {
-                var result = await _appClient.UpdateBranchAsync(requestDto);
+                var result = await _appClient.UpdateDesignationAsync(requestDto);
 
                 if (result.Success)
                 {
@@ -323,11 +266,11 @@ namespace WebApp.UI.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}", Name = "DeleteBranch")]
-        public async Task<object> DeleteBranch([FromRoute] int id)
+        [Route("{id}", Name = "DeleteDesignation")]
+        public async Task<object> DeleteDesignation([FromRoute] int id)
         {
             StringBuilder sb = new StringBuilder();
-            var result = await _appClient.DeleteBranchAsync(id);
+            var result = await _appClient.DeleteDesignationAsync(id);
 
             if (!result.Success)
             {
@@ -350,11 +293,11 @@ namespace WebApp.UI.Controllers
         }
 
         [HttpPatch]
-        [Route("{id}", Name = "ChangeStatus")]
-        public async Task<object> ChangeStatus([FromRoute] int id)
+        [Route("{id}", Name = "ChangeDesignationStatus")]
+        public async Task<object> ChangeDesignationStatus([FromRoute] int id)
         {
             StringBuilder sb = new StringBuilder();
-            var result = await _appClient.UpdateBranchStatusAsync(id);
+            var result = await _appClient.UpdateDesignationStatusAsync(id);
 
             if (!result.Success)
             {

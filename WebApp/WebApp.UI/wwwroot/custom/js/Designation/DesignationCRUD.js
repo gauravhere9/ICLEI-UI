@@ -3,12 +3,12 @@ var AddOrUpdate = function (id) {
 
     resetControls();
 
-    var url = "/Branches/" + id;
+    var url = "/Designations/" + id;
     if (id > 0) {
-        $('#title').html("Edit Branch");
+        $('#title').html("Edit Designations");
     }
 
-    $("#branchModelBody").load(url, function (response, status, xhr) {
+    $("#designationModelBody").load(url, function (response, status, xhr) {
         if (status == "error") {
             var msg = "Sorry but there was an error: ";
             /* $("#error").html(msg + xhr.status + " " + xhr.statusText);*/
@@ -16,7 +16,7 @@ var AddOrUpdate = function (id) {
             ShowErrorSwal(msg + xhr.status + " " + xhr.statusText);
         }
         else {
-            $("#kt_modal_branch").modal("show");
+            $("#kt_modal_designation").modal("show");
         }
 
     });
@@ -24,14 +24,11 @@ var AddOrUpdate = function (id) {
 
 // RESET THE CONTROLS
 var resetControls = function (id) {
-    $("BranchCode").val('');
-    $("Address").val('');
-    $("Location").val('');
+    $("#Name").val('');
+    $("#Description").val('');
 
-    $("errorBranchCode").text('');
-    $("errorAddress").text('');
-    $("errorLocation").text('');
-    $("errorCompanyId").text('');
+    $("#errorName").text('');
+    $("#errorDescription").text('');
 
     if (id > 0) {
         $("#Id").val(0);
@@ -42,44 +39,25 @@ var resetControls = function (id) {
 var validations = function () {
     var isValid = true;
 
-    if ($.trim($('#BranchCode').val()) === '') {
-
-        $("#errorBranchCode").text("Branch code is required");
+    if ($.trim($('#Name').val()) === '') {
+        ShowErrorSwal("Designation code is required");
+        $("#errorName").text("Designation code is required");
         isValid = false;
     }
     else {
-        $("#errorBranchCode").text("");
+        $("#errorName").text("");
     }
 
-    if ($.trim($('#Address').val()) == '') {
-        $("#errorAddress").text("Address is required");
+    if ($.trim($('#Description').val()) == '') {
+        ShowErrorSwal("Description is required");
+        $("#errorDescription").text("Description is required");
         isValid = false;
     }
     else {
-        $("#errorAddress").text("");
+        $("errorDescription").text("");
     }
-
-    if ($.trim($('#Location').val()) === '') {
-        $("#errorLocation").text("Location is required");
-        isValid = false;
-    }
-    else {
-        $("#errorLocation").text("");
-    }
-
-    $("#CompanyId").each(function () {
-        if ($(this).attr("checked") != "checked") {
-            $("#errorCompanyId").text("Please select the company");
-            isValid = false;
-        }
-        else {
-            $("#errorCompanyId").text("");
-        }
-    });
-
 
     return isValid;
-
 }
 
 // ADD THE RECORD
@@ -87,11 +65,11 @@ $('body').on('click', "#btnSubmit", function (e) {
     e.preventDefault();
     if (validations()) {
 
-        var myformdata = $("#addBranchForm").serialize();
+        var myformdata = $("#addForm").serialize();
 
         $.ajax({
             type: "POST",
-            url: "/branches/addbranch",
+            url: "/designations/adddesignation",
             data: myformdata,
             success: function (result) {
 
@@ -100,26 +78,25 @@ $('body').on('click', "#btnSubmit", function (e) {
                         ShowErrorSwal(result.message);
                     }
                     else {
-                        $("#kt_modal_branch").modal("hide");
-                        ShowSuccessSwal("Branch is added successfully !", "/branches?sortExpression=Id_Desc");
+                        $("#kt_modal_designation").modal("hide");
+                        ShowSuccessSwal("Designation is added successfully !", "/designations?sortExpression=Id_Desc");
                     }
                 }
             },
             error: function (errormessage) {
-                
-
                 ShowErrorSwal("Error");
             }
         });
     }
+     
 });
 
 //DELETE THE RECORD
-var deleteBranch = function (id) {
+var deleteDesignation = function (id) {
     if (id > 0) {
         $.ajax({
             type: "DELETE",
-            url: "/branches/" + id,
+            url: "/designations/" + id,
             success: function (result) {
 
                 if (result != null) {
@@ -127,21 +104,21 @@ var deleteBranch = function (id) {
                         ShowErrorSwal(result.message);
                     }
                     else {
-                        $("#kt_modal_branch").modal("hide");
+                        $("#kt_modal_designation").modal("hide");
 
-                        ShowSuccessSwal("Branch is deleted successfully !", "/branches");
+                        ShowSuccessSwal("Designation is deleted successfully !", "/designations");
                     }
                 }
             },
             error: function (errormessage) {
-                
+
 
                 ShowErrorSwal("Error");
             }
         });
     }
     else {
-        ShowErrorSwal("Branch id is not valid");
+        ShowErrorSwal("Designation id is not valid");
     }
 }
 
@@ -151,13 +128,6 @@ var deleteConfirmation = function (id) {
     if (id > 0) {
 
         Swal.fire({
-            //text: "Are you sure you want to delete?",
-            //icon: "warning",
-            //showCancelButton: !0,
-            //buttonsStyling: !1,
-            //confirmButtonText: "Yes, cancel it!",
-            //cancelButtonText: "No, return",
-            //customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" }
 
             text: "Are you sure you want to delete?",
             icon: "warning",
@@ -168,17 +138,11 @@ var deleteConfirmation = function (id) {
             customClass: { confirmButton: "btn fw-bold btn-danger", cancelButton: "btn fw-bold btn-active-light-primary" }
         })
             .then((function (t) {
-                t.value ? deleteBranch(id) :
-
-
+                t.value ? deleteDesignation(id) :
                     "cancel" === t.dismiss
-                //&& Swal.fire({
-                //    text: "Delete operation is cancelled!.", icon: "error", buttonsStyling: !1,
-                //    confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn btn-primary" }
-                //})
             }));
     } else {
-        ShowErrorSwal("Branch id is not valid");
+        ShowErrorSwal("Designation id is not valid");
     }
 }
 
@@ -186,17 +150,7 @@ var deleteConfirmation = function (id) {
 var changeStatusConfirmation = function (id) {
 
     if (id > 0) {
-
-
         Swal.fire({
-            //text: "Are you sure you want to delete?",
-            //icon: "warning",
-            //showCancelButton: !0,
-            //buttonsStyling: !1,
-            //confirmButtonText: "Yes, cancel it!",
-            //cancelButtonText: "No, return",
-            //customClass: { confirmButton: "btn btn-primary", cancelButton: "btn btn-active-light" }
-
             text: "Are you sure you want to change status?",
             icon: "warning",
             showCancelButton: !0,
@@ -206,26 +160,20 @@ var changeStatusConfirmation = function (id) {
             customClass: { confirmButton: "btn fw-bold btn-danger", cancelButton: "btn fw-bold btn-active-light-primary" }
         })
             .then((function (t) {
-                t.value ? changeBranchStatus(id) :
-
-
+                t.value ? changeDesignationStatus(id) :
                     "cancel" === t.dismiss
-                //&& Swal.fire({
-                //    text: "Delete operation is cancelled!.", icon: "error", buttonsStyling: !1,
-                //    confirmButtonText: "Ok, got it!", customClass: { confirmButton: "btn btn-primary" }
-                //})
             }));
     } else {
-        ShowErrorSwal("Branch id is not valid");
+        ShowErrorSwal("Designation id is not valid");
     }
 }
 
 // CHANGE THE RECORD STATUS
-var changeBranchStatus = function (id) {
+var changeDesignationStatus = function (id) {
     if (id > 0) {
         $.ajax({
             type: "PATCH",
-            url: "/branches/" + id,
+            url: "/designations/" + id,
             success: function (result) {
 
                 if (result != null) {
@@ -233,36 +181,34 @@ var changeBranchStatus = function (id) {
                         ShowErrorSwal(result.message);
                     }
                     else {
-                        $("#kt_modal_branch").modal("hide");
+                        $("#kt_modal_designation").modal("hide");
 
-                        ShowSuccessSwal("Branch status is changed successfully !", "/branches");
+                        ShowSuccessSwal("Designation status is changed successfully !", "/designations");
                     }
                 }
             },
             error: function (errormessage) {
-               
-
                 ShowErrorSwal("Error");
             }
         });
     }
     else {
-        ShowErrorSwal("Branch id is not valid");
+        ShowErrorSwal("Designation id is not valid");
     }
 }
 
 // UPDATE THE RECORD
-var updateBranch = function (id) {
+var updateDesignation = function (id) {
 
     if (id > 0) {
 
         if (validations()) {
 
-            var myformdata = $("#updateBranchForm").serialize();
+            var myformdata = $("#updateDesignationForm").serialize();
 
             $.ajax({
                 type: "PUT",
-                url: "/branches/updatebranch",
+                url: "/designations/updatedesignation",
                 data: myformdata,
                 success: function (result) {
 
@@ -272,21 +218,19 @@ var updateBranch = function (id) {
                         }
                         else {
 
-                            $("#kt_modal_branch").modal("hide");
-                            ShowSuccessSwal("Branch is updated successfully !", "/branches");
+                            $("#kt_modal_designation").modal("hide");
+                            ShowSuccessSwal("Designation is updated successfully !", "/designations");
                         }
                     }
                 },
                 error: function (errormessage) {
-
-                    console.log(errormessage);
                     ShowErrorSwal("Error");
                 }
             });
         }
     }
     else {
-        ShowErrorSwal("Branch id is not valid");
+        ShowErrorSwal("Designation id is not valid");
     }
 };
- 
+

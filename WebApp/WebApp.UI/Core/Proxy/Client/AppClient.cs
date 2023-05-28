@@ -277,7 +277,7 @@ namespace WebApp.UI.Core.Proxy.Client
 
         public async Task<ApiResponse<object>> AddDesignationAsync(AddDesignationRequestDto requestDto)
         {
-            var url = $"pi/v1/designations";
+            var url = $"api/v1/designations";
 
             var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Post);
 
@@ -313,7 +313,9 @@ namespace WebApp.UI.Core.Proxy.Client
 
         public async Task<ApiResponse<PagedResponseDto<DesignationResponseDto>>> GetDesignationesWithPSS(DesignationSearchRequestDto requestDto)
         {
-            var url = $"api/v1/designations";
+            var queryString = requestDto.GetQueryString();
+
+            var url = $"api/v1/designations?{queryString}";
 
             var response = await InvokeAPI<PagedResponseDto<DesignationResponseDto>>(requestDto, url, HttpMethodTypes.Get);
 

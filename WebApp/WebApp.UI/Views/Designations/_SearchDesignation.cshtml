@@ -1,0 +1,38 @@
+﻿@using WebApp.UI.Models.Designation;
+@using Microsoft.AspNetCore.Http;
+@model SearchDesignation
+ 
+<form method="get">
+    <div class="collapse" id="collapseExample">
+        <div class="card card-flush py-4">
+            <!--begin::Card body-->
+            <div class="">
+                <!--begin::Billing address-->
+                <div class="d-flex flex-column gap-5 gap-md-7">
+                    <!--begin::Input group-->
+                    <div class="d-flex flex-column flex-md-row gap-3">
+                        <div class="flex-row-fluid">
+                            <!--begin::Input-->
+                            <input id="txtName" type="text" asp-for="@Model.name" value="@Context.Session.GetString("Name")" class="form-control mb-3 mb-lg-0" placeholder="Search By Designation Name">
+                            <!--end::Input-->
+                        </div>
+                        
+                        <div class="fv-row flex-row-fluid fv-plugins-icon-container d-flex gap-3 justify-content-end">
+                            <button class="ml-10 btn btn-light-primary" type="submit">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+
+                            <a asp-action="" asp-route-rst="true" class="ml-10 btn btn-light-danger">
+                                <i class="fa fa-refresh"></i> Reset
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!--end::Billing address-->
+            </div>
+            <!--end::Card body-->
+        </div>
+    </div>
+</form>

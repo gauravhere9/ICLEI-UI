@@ -17,7 +17,9 @@ namespace WebApp.UI.Controllers
         private readonly IAppClient _appClient;
         private readonly ApplicationOptions _applicationOptions;
         private readonly AuthenticationOptions _authenticationOptions;
-        public BranchesController(ILogger<AuthController> logger, IAppClient appClient, ApplicationOptions applicationOptions, AuthenticationOptions authenticationOptions) : base(applicationOptions, authenticationOptions)
+        public BranchesController(ILogger<AuthController> logger, IAppClient appClient, ApplicationOptions applicationOptions,
+            AuthenticationOptions authenticationOptions)
+            : base(appClient, applicationOptions, authenticationOptions)
         {
             _logger = logger;
             _appClient = appClient;
@@ -81,8 +83,8 @@ namespace WebApp.UI.Controllers
                 OrderByDirection = sortingHelper.Direction,
                 PageSize = pageSize,
                 PageIndex = pageno,
-                BranchCode = searchBranch.bcode,
-                Location = searchBranch.loc,
+                BranchCode = searchBranch.bcode ?? "",
+                Location = searchBranch.loc ?? "",
                 CompanyId = searchBranch.comp ?? 0
 
             };

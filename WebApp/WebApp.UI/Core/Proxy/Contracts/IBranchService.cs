@@ -14,6 +14,6 @@ namespace WebApp.UI.Core.Proxy.Contracts
         Task<ApiResponse<object>> DeleteBranchAsync(int id);
         Task<ApiResponse<PagedResponseDto<BranchResponseDto>>> GetBranchesWithPSS(BranchSearchRequestDto requestDto);
         Task<ApiResponse<BranchResponseDto>> GetBranchDetailsAsync(int id);
-        Task<ApiResponse<DropdownDto>> GetBranchDropdownAsync(int companyId);
+        Task<ApiResponse<DropdownDto>> GetBranchDropdownAsync();
     }
 }

@@ -18,7 +18,7 @@ namespace WebApp.UI.Controllers
         private readonly AuthenticationOptions _authenticationOptions;
 
         public AuthController(ILogger<AuthController> logger, IAppClient appClient, ApplicationOptions applicationOptions, AuthenticationOptions authenticationOptions)
-            : base(applicationOptions, authenticationOptions)
+            : base(appClient, applicationOptions, authenticationOptions)
         {
             _logger = logger;
             _appClient = appClient;

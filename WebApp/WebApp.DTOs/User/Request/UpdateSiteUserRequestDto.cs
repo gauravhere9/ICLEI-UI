@@ -12,18 +12,11 @@ namespace WebApp.DTOs.User.Request
         [Range(1, int.MaxValue, ErrorMessage = "Please enter correct id")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "First name is required")]
+        [Required(ErrorMessage = "Name is required")]
         [NoSpaceChar]
         [NoConsecutiveSpace]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "First name must contain 3-100 characters")]
-        public string FirstName { get; set; } = string.Empty;
-        public string MiddleName { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "Last name is required")]
-        [NoSpaceChar]
-        [NoConsecutiveSpace]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "Last name must contain 3-100 characters")]
-        public string LastName { get; set; } = string.Empty;
+        [StringLength(500, MinimumLength = 3, ErrorMessage = "Name must contain 3-100 characters")]
+        public string Name { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Employee code is required")]
         [NoSpaceChar]

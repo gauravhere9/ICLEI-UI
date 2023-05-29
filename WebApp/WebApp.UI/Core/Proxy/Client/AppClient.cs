@@ -262,9 +262,9 @@ namespace WebApp.UI.Core.Proxy.Client
             return response;
         }
 
-        public async Task<ApiResponse<DropdownDto>> GetBranchDropdownAsync(int companyId)
+        public async Task<ApiResponse<DropdownDto>> GetBranchDropdownAsync()
         {
-            var url = $"api/v1/branch/{companyId}/dropdown";
+            var url = $"api/v1/branch/dropdown";
 
             var response = await InvokeAPI<DropdownDto>(null, url, HttpMethodTypes.Get);
 
@@ -394,7 +394,9 @@ namespace WebApp.UI.Core.Proxy.Client
 
         public async Task<ApiResponse<PagedResponseDto<SiteUserResponseDto>>> GetUserWithPSS(SearchSiteUserRequestDto requestDto)
         {
-            var url = $"api/v1/users";
+            var queryString = requestDto.GetQueryString();
+
+            var url = $"api/v1/users?{queryString}";
 
             var response = await InvokeAPI<PagedResponseDto<SiteUserResponseDto>>(requestDto, url, HttpMethodTypes.Get);
 

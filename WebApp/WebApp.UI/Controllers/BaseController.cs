@@ -8,15 +8,18 @@ using WebApp.DTOs.Auth.Login.Response;
 using WebApp.Global.Extensions;
 using WebApp.Global.Options;
 using WebApp.Global.Shared;
+using WebApp.UI.Core.Proxy.Client;
 
 namespace WebApp.UI.Controllers
 {
     public class BaseController : Controller
     {
+        private readonly IAppClient _appClient;
         private readonly ApplicationOptions _applicationOptions;
         private readonly AuthenticationOptions _authenticationOptions;
-        public BaseController(ApplicationOptions applicationOptions, AuthenticationOptions authenticationOptions)
+        public BaseController(IAppClient appClient, ApplicationOptions applicationOptions, AuthenticationOptions authenticationOptions)
         {
+            _appClient = appClient;
             _applicationOptions = applicationOptions;
             _authenticationOptions = authenticationOptions;
         }
@@ -194,6 +197,54 @@ namespace WebApp.UI.Controllers
                 {
                     return string.Empty;
                 }
+            }
+        }
+
+        protected async Task BindCompanies()
+        {
+            ViewBag.Companies = null;
+
+            var result = await _appClient.GetCompanyDropdownAsync();
+
+            if (result.Success)
+            {
+                ViewBag.Companies = result.Data;
+            }
+        }
+
+        protected async Task BindBranches()
+        {
+            ViewBag.Branches = null;
+
+            var result = await _appClient.GetBranchDropdownAsync();
+
+            if (result.Success)
+            {
+                ViewBag.Branches = result.Data;
+            }
+        }
+
+        protected async Task BindDesignations()
+        {
+            ViewBag.Designations = null;
+
+            var result = await _appClient.GetDesignationDropdownAsync();
+
+            if (result.Success)
+            {
+                ViewBag.Designations = result.Data;
+            }
+        }
+
+        protected async Task BindMasterDropdown()
+        {
+            ViewBag.Masters = null;
+
+            var result = await _appClient.GetMasterDropdown();
+
+            if (result.Success)
+            {
+                ViewBag.Masters = result.Data;
             }
         }
     }

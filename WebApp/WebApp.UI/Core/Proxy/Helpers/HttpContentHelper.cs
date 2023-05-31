@@ -25,9 +25,9 @@ namespace WebApp.UI.Core.Proxy.Helpers
 
                 return apiResponse;
             }
-            catch
+            catch (Exception ex)
             {
-                return new ApiResponse<T>((int)HttpStatusCode.BadRequest);
+                return new ApiResponse<T>((int)HttpStatusCode.BadRequest) { Message = ex.Message };
             }
         }
     }

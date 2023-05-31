@@ -14,6 +14,6 @@ namespace WebApp.UI.Core.Proxy.Contracts
         Task<ApiResponse<object>> DeleteUserAsync(int id);
         Task<ApiResponse<PagedResponseDto<SiteUserResponseDto>>> GetUserWithPSS(SearchSiteUserRequestDto requestDto);
         Task<ApiResponse<SiteUserResponseDto>> GetUserDetailsAsync(int id);
-        Task<ApiResponse<DropdownDto>> GetUserDropdownAsync(int branchId);
+        Task<ApiResponse<IList<DropdownDto>>> GetUserDropdownAsync(int branchId);
     }
 }

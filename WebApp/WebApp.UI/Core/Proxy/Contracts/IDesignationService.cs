@@ -14,6 +14,6 @@ namespace WebApp.UI.Core.Proxy.Contracts
         Task<ApiResponse<object>> DeleteDesignationAsync(int id);
         Task<ApiResponse<PagedResponseDto<DesignationResponseDto>>> GetDesignationesWithPSS(DesignationSearchRequestDto requestDto);
         Task<ApiResponse<DesignationResponseDto>> GetDesignationDetailsAsync(int id);
-        Task<ApiResponse<DropdownDto>> GetDesignationDropdownAsync();
+        Task<ApiResponse<IList<DropdownDto>>> GetDesignationDropdownAsync();
     }
 }

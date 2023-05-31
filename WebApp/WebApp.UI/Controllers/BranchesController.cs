@@ -200,18 +200,6 @@ namespace WebApp.UI.Controllers
             }
         }
 
-        private async Task BindCompanies()
-        {
-            ViewBag.Companies = null;
-
-            var companies = await _appClient.GetCompanyDropdownAsync();
-
-            if (companies.Success)
-            {
-                ViewBag.Companies = companies.Data;
-            }
-        }
-
         [HttpGet]
         [Route("{id}", Name = "AddOrUpdate")]
         public async Task<IActionResult> AddOrUpdate([FromRoute] int id)

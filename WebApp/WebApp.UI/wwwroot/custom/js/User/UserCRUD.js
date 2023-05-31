@@ -233,3 +233,36 @@ var updateUser = function (id) {
     }
 };
 
+
+$('body').on('change', "#ddlBranch", function (e) {
+    e.preventDefault();
+
+    var branchId = $("#ddlBranch").val();
+
+    console.log(branchId);
+
+    if (branchId > 0) {
+        $.ajax({
+            type: "GET",
+            url: "/users/" + branchId + "/reporting-to",
+            success: function (result) {
+
+                console.log(result);
+
+                if (result != null) {
+                    if (result.statusCode != 200) {
+                        ShowErrorSwal(result.message);
+                    }
+                    else {
+                        $.each(result.data, function (index, value) {
+                            $("#ddlReportingTo").append($("<option></option>").val(this.dataValue).html(this.dataText));
+                        });
+                    }
+                }
+            },
+            error: function (errormessage) {
+                ShowErrorSwal("Error");
+            }
+        });
+    }
+});

@@ -5,96 +5,70 @@
 <form method="get">
     <div class="collapse" id="collapseExample">
         <div class="card card-flush py-4">
-            <!--begin::Card body-->
-            <div class="">
-                <!--begin::Billing address-->
-                <div class="d-flex flex-column gap-5 gap-md-7">
-                    <!--begin::Input group-->
-                    <div class="d-flex flex-column flex-md-row gap-3">
-                        <div class="flex-row-fluid">
-                            <!--begin::Input-->
-                            <input id="txtName" type="text" asp-for="@Model.name" value="@Context.Session.GetString("Name")" class="form-control mb-3 mb-lg-0" placeholder="Search By Name">
-                            <!--end::Input-->
-                        </div>
 
-                        <div class="fv-row flex-row-fluid fv-plugins-icon-container">
-                            <!--begin::Input-->
-                            <input id="txtEmployeeCode" type="text" asp-for="@Model.employeecode" value="@Context.Session.GetString("EmployeeCode")" class="form-control mb-3 mb-lg-0" placeholder="Search By Employee Code">
-                            <!--end::Input-->
-                        </div> 
-                        
-                        <div class="fv-row flex-row-fluid fv-plugins-icon-container">
-                            <!--begin::Input-->
-                            <input id="txtEmail" type="text" asp-for="@Model.email" value="@Context.Session.GetString("Email")" class="form-control mb-3 mb-lg-0" placeholder="Search By Email">
-                            <!--end::Input-->
-                        </div>
-                        
-                        <div class="fv-row flex-row-fluid fv-plugins-icon-container">
-                            <!--begin::Input-->
-                            <input id="txtMobile" type="text" asp-for="@Model.mobile" value="@Context.Session.GetString("Mobile")" class="form-control mb-3 mb-lg-0" placeholder="Search By Moobile">
-                            <!--end::Input-->
-                        </div>
-
-                        <div class="fv-row flex-row-fluid fv-plugins-icon-container">
-                            <select id="ddlBranch" asp-for="@Model.branchId" value="@Context.Session.GetInt32("BranchId")" class="form-select mb-3 mb-lg-0" data-kt-select2="true" data-placeholder="Select Branch" data-allow-clear="true">
-                                <option></option>
-                                @if (ViewBag.Branches != null)
-                                {
-                                    foreach (var item in ViewBag.Branches)
-                                    {
-                                        <option value="@item.DataValue">@item.DataText</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                        
-                        <div class="fv-row flex-row-fluid fv-plugins-icon-container">
-                            <select id="ddlDesignation" asp-for="@Model.designationId" value="@Context.Session.GetInt32("DesignationId")" class="form-select mb-3 mb-lg-0" data-kt-select2="true" data-placeholder="Select Designations" data-allow-clear="true">
-                                <option></option>
-                                @if (ViewBag.Designations != null)
-                                {
-                                    foreach (var item in ViewBag.Designations)
-                                    {
-                                        <option value="@item.DataValue">@item.DataText</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                        
-                        <div class="fv-row flex-row-fluid fv-plugins-icon-container">
-                            <select id="ddlUserTypes" asp-for="@Model.userTypeId" value="@Context.Session.GetInt32("UserTypeId")" class="form-select mb-3 mb-lg-0" data-kt-select2="true" data-placeholder="Select User Types" data-allow-clear="true">
-                                <option></option>
-                                @if (ViewBag.Masters != null)
-                                {
-                                    if (ViewBag.Masters.UserTypes != null)
-                                    {
-                                        foreach (var item in ViewBag.Masters.UserTypes)
-                                        {
-                                            <option value="@item.DataValue">@item.DataText</option>
-                                        }
-                                    }
-                                }
-                            </select>
-                        </div>
-
-
-
-                        <div class="fv-row flex-row-fluid fv-plugins-icon-container d-flex gap-3 justify-content-end">
-                            <button class="ml-10 btn btn-light-primary" type="submit">
-                                <i class="fa fa-search"></i> Search
-                            </button>
-
-                            <a asp-action="" asp-route-rst="true" class="ml-10 btn btn-light-danger">
-                                <i class="fa fa-refresh"></i> Reset
-                            </a>
-                        </div>
-                    </div>
-
-
+            <div class="row g-5 mb-2">
+                <div class="col-md-3 fv-row fv-plugins-icon-container">
+                    <input id="txtName" type="text" asp-for="@Model.name" value="@Context.Session.GetString("Name")" class="form-control mb-3 mb-lg-0" placeholder="Search By Name">
                 </div>
-                <!--end::Billing address-->
+                <div class="col-md-3 fv-row fv-plugins-icon-container">
+                    <input id="txtEmployeeCode" type="text" asp-for="@Model.employeecode" value="@Context.Session.GetString("EmployeeCode")" class="form-control mb-3 mb-lg-0" placeholder="Search By Employee Code">
+                </div>
+                <div class="col-md-3 fv-row fv-plugins-icon-container">
+                    <input id="txtEmail" type="text" asp-for="@Model.email" value="@Context.Session.GetString("Email")" class="form-control mb-3 mb-lg-0" placeholder="Search By Email">
+                </div>
+                <div class="col-md-3 fv-row fv-plugins-icon-container">
+                    <input id="txtMobile" type="text" asp-for="@Model.mobile" value="@Context.Session.GetString("Mobile")" class="form-control mb-3 mb-lg-0" placeholder="Search By Moobile">
+                </div>
+                <div class="col-md-3 fv-row fv-plugins-icon-container">
+                    <select id="ddlBranch" asp-for="@Model.branchId" value="@Context.Session.GetInt32("BranchId")" class="form-select mb-3 mb-lg-0" data-kt-select2="true" data-placeholder="Select Branch" data-allow-clear="true">
+                        <option></option>
+                        @if (ViewBag.Branches != null)
+                        {
+                            foreach (var item in ViewBag.Branches)
+                            {
+                                <option value="@item.DataValue">@item.DataText</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3 fv-row fv-plugins-icon-container">
+                    <select id="ddlDesignation" asp-for="@Model.designationId" value="@Context.Session.GetInt32("DesignationId")" class="form-select mb-3 mb-lg-0" data-kt-select2="true" data-placeholder="Select Designations" data-allow-clear="true">
+                        <option></option>
+                        @if (ViewBag.Designations != null)
+                        {
+                            foreach (var item in ViewBag.Designations)
+                            {
+                                <option value="@item.DataValue">@item.DataText</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3 fv-row fv-plugins-icon-container">
+                    <select id="ddlUserTypes" asp-for="@Model.userTypeId" value="@Context.Session.GetInt32("UserTypeId")" class="form-select mb-3 mb-lg-0" data-kt-select2="true" data-placeholder="Select User Types" data-allow-clear="true">
+                        <option></option>
+                        @if (ViewBag.Masters != null)
+                        {
+                            if (ViewBag.Masters.UserTypes != null)
+                            {
+                                foreach (var item in ViewBag.Masters.UserTypes)
+                                {
+                                    <option value="@item.DataValue">@item.DataText</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3 fv-row fv-plugins-icon-container">
+                    <button class="ml-10 btn btn-light-primary" type="submit">
+                        <i class="fa fa-search"></i> Search
+                    </button>
+
+                    <a asp-action="" asp-route-rst="true" class="ml-10 btn btn-light-danger">
+                        <i class="fa fa-refresh"></i> Reset
+                    </a>
+                </div>
+
             </div>
-            <!--end::Card body-->
         </div>
     </div>
 </form>

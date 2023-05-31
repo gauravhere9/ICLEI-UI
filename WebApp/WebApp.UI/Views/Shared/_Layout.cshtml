@@ -21,8 +21,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" asp-append-version="true" />
     <!--end::Fonts-->
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" asp-append-version="true" />
-    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <link href="~/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <link href="~/assets/css/style.bundle.css" rel="stylesheet" type="text/css" asp-append-version="true" />
     <!--end::Global Stylesheets Bundle-->
 
     <style>
@@ -42,6 +42,10 @@
             background: none;
             font-weight: 500;
             width:100%;
+        }
+
+        .container-height-100-per{
+            height: 100%;
         }
     </style>
 
@@ -71,7 +75,7 @@
                     <!--begin::Mobile logo-->
                     <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                         <a href="/" class="d-lg-none">
-                            <img asp-append-version="true" alt="Logo" src="assets/media/logos/logo.png" class="h-30px" />
+                            <img asp-append-version="true" alt="Logo" src="~/assets/media/logos/logo.png" class="h-30px" />
                         </a>
                     </div>
                     <!--end::Mobile logo-->
@@ -200,7 +204,7 @@
                             <div class="app-navbar-item ms-1 ms-md-3" id="kt_header_user_menu_toggle">
                                 <!--begin::Menu wrapper-->
                                 <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                                    <img asp-append-version="true" src="assets/media/avatars/blank.png" alt="user" />
+                                    <img asp-append-version="true" src="~/assets/media/avatars/blank.png" alt="user" />
 
                                 </div>
                                 <!--begin::User account menu-->
@@ -211,7 +215,7 @@
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-50px me-5">
 
-                                                <img asp-append-version="true" src="assets/media/avatars/blank.png" alt="user" />
+                                                <img asp-append-version="true" src="~/assets/media/avatars/blank.png" alt="user" />
                                             </div>
                                             <!--end::Avatar-->
                                             <!--begin::Username-->
@@ -285,10 +289,10 @@
                     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
                         <!--begin::Logo image-->
                         <a href="/">
-                            <img asp-append-version="true" alt="Logo" src="assets/media/logos/logo.png" class="h-50px app-sidebar-logo-default" />
+                            <img asp-append-version="true" alt="Logo" src="~/assets/media/logos/logo.png" class="h-50px app-sidebar-logo-default" />
                             <span class="text-white fw-bold mx-5 app-sidebar-logo-default">Welcome to CMS 1.0</span>
 
-                            <img asp-append-version="true" alt="Logo" src="assets/media/logos/logo.png" class="h-20px app-sidebar-logo-minimize">
+                            <img asp-append-version="true" alt="Logo" src="~/assets/media/logos/logo.png" class="h-20px app-sidebar-logo-minimize">
                         </a>
                         <!--end::Logo image-->
                         <!--begin::Sidebar toggle-->
@@ -460,6 +464,19 @@
                                     <!--end:Menu link-->
                                     <div class="menu-sub menu-sub-accordion" kt-hidden-height="322" style="display: none; overflow: hidden;">
 
+                                    <!--begin:Menu item-->
+                                        <div class="menu-item">
+                                            <!--begin:Menu link-->
+                                            <a class="menu-link" href="/users/add-user">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">Add User</span>
+                                            </a>
+                                            <!--end:Menu link-->
+                                        </div>
+                                        <!--end:Menu item-->
+
                                         <!--begin:Menu item-->
                                         <div class="menu-item">
                                             <!--begin:Menu link-->
@@ -501,7 +518,7 @@
                         <!--begin::Content-->
                         <div id="kt_app_content" class="app-content flex-column-fluid py-3 py-lg-6">
                             <!--begin::Content container-->
-                            <div id="kt_app_content_container" class="app-container container-fluid">
+                            <div id="kt_app_content_container" class="app-container container-fluid container-height-100-per">
 
                                 @RenderBody()
                             </div>
@@ -556,10 +573,10 @@
     <!--begin::Javascript-->
     <script>var hostUrl = "assets/";</script>
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src="assets/plugins/global/plugins.bundle.js" asp-append-version="true"></script>
-    <script src="assets/js/scripts.bundle.js" asp-append-version="true"></script>
-    <script src="assets/js/jquery.validate.min.js" asp-append-version="true"></script>
-    <script src="assets/js/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
+    <script src="~/assets/plugins/global/plugins.bundle.js" asp-append-version="true"></script>
+    <script src="~/assets/js/scripts.bundle.js" asp-append-version="true"></script>
+    <script src="~/assets/js/jquery.validate.min.js" asp-append-version="true"></script>
+    <script src="~/assets/js/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
  
     <!--end::Global Javascript Bundle-->
 

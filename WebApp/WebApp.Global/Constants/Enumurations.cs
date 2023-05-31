@@ -14,8 +14,7 @@ namespace WebApp.Global.Constants
         public enum MaritalStatus
         {
             Married = 1,
-            Unmarried = 2,
-            Divorced = 3
+            Unmarried = 2
         }
 
         public enum BloodGroupTypes

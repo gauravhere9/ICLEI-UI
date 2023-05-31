@@ -148,3 +148,5 @@
 /WebApp/WebApp.Global/obj/WebApp.Global.csproj.nuget.g.props
 /WebApp/WebApp.UI/obj/WebApp.UI.csproj.nuget.g.props
 /WebApp/.vs/ProjectEvaluation
+/WebApp/WebApp.DTOs/bin/Debug/net6.0/nlog.config
+/WebApp/WebApp.DTOs/bin/Debug/net6.0/WebApp.DTOs.deps.json

@@ -88,14 +88,16 @@
 
             </form>
         </div>
-
-        <!--begin::Menu item-->
-        <div class="menu-item px-3">
-            <form id="deleteDesignationForm">
-                <button type="button" id="btnDelete" class="menu-link px-3 btn-backgroud-none-border-none-width-100" onclick="deleteConfirmation(@Model.Id)">Delete</button>
-            </form>
-        </div>
-        <!--end::Menu item-->
+        @if (Model.IsActive)
+        {
+            <!--begin::Menu item-->
+            <div class="menu-item px-3">
+                <form id="deleteDesignationForm">
+                    <button type="button" id="btnDelete" class="menu-link px-3 btn-backgroud-none-border-none-width-100" onclick="deleteConfirmation(@Model.Id)">Delete</button>
+                </form>
+            </div>
+            <!--end::Menu item-->
+        }
     </div>
     <!--end::Menu-->
 </td>

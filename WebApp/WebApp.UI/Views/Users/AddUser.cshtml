@@ -1,0 +1,448 @@
+﻿@using WebApp.DTOs.User.Request;
+@model AddSiteUserRequestDto
+@{
+    ViewData["Title"] = "Add User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card container-height-100-per">
+
+    <!--begin::Card body-->
+    <div class="card-body py-4" id="kt_add_user" data-bs-backdrop="static" data-bs-keyboard="false">
+        <!--begin::Stepper-->
+        <div class="stepper stepper-links d-flex flex-column" id="kt_create_account_stepper">
+            <!--begin::Nav-->
+            <div class="stepper-nav py-5">
+                <!--begin::Step 1-->
+                <div class="stepper-item current" data-kt-stepper-element="nav">
+                    <h3 class="stepper-title">Official Info</h3>
+                </div>
+                <!--end::Step 1-->
+                <!--begin::Step 2-->
+                <div class="stepper-item" data-kt-stepper-element="nav">
+                    <h3 class="stepper-title">Personal Info</h3>
+                </div>
+                <!--end::Step 2-->
+                <!--begin::Step 3-->
+                <div class="stepper-item" data-kt-stepper-element="nav">
+                    <h3 class="stepper-title">Emergency Details</h3>
+                </div>
+                <!--end::Step 3-->
+
+            </div>
+            <!--end::Nav-->
+            <!--begin::Form-->
+            <form class="mx-auto mw-900px w-100 py-10" novalidate="novalidate" id="addForm" method="post">
+                <!--begin::Step 1-->
+                <div class="current" data-kt-stepper-element="content">
+                    <!--begin::Wrapper-->
+                    <div class="row w-100">
+
+                        <div class="col-md-6">
+
+                            <!--begin::Heading-->
+                            <div class="pb-5">
+                                <!--begin::Title-->
+                                <h2 class="fw-bold d-flex align-items-center text-dark">
+                                    Choose Company
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="A new user will be created under the selected compnay">
+                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                        </i>
+                                    </span>
+                                </h2>
+                                <!--end::Title-->
+                                <!--begin::Notice-->
+                                <div class="text-muted fw-semibold fs-6">
+                                    If you need more info, please contact your admin.
+                                </div>
+                                <!--end::Notice-->
+                            </div>
+                            <!--end::Heading-->
+                            <!--begin::Input group-->
+                            <div class="fv-row">
+                                <!--begin::Row-->
+                                <div class="row">
+
+                                    @if (ViewBag.Companies != null)
+                                    {
+                                        foreach (var item in ViewBag.Companies)
+                                        {
+                                            <!--begin::Col-->
+                                            <div class="col-md-12">
+                                                <!--begin::Option-->
+                                                <input class="btn-check" type="radio" name="CompanyId" value="@item.DataValue" checked="checked" tabindex="1">
+                                                <label class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-10" for="kt_create_account_form_account_type_personal">
+                                                    <i class="ki-duotone ki-badge fs-3x me-5">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                        <span class="path4"></span>
+                                                        <span class="path5"></span>
+                                                    </i>
+                                                    <!--begin::Info-->
+                                                    <span class="d-block fw-semibold text-start">
+                                                        <span class="text-dark fw-bold d-block fs-4 mb-2">@item.DataText</span>
+
+                                                    </span>
+                                                    <!--end::Info-->
+                                                </label>
+                                                <!--end::Option-->
+                                            </div>
+                                            <!--end::Col-->
+                                        }
+                                    }
+                                </div>
+                                <!--end::Row-->
+
+
+                            </div>
+                            <!--end::Input group-->
+
+
+
+                            <div class="mb-10 fv-row fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
+                                <!--begin::Label-->
+                                <label class="d-flex align-items-center form-label mb-3">
+                                    Specify User Type
+                                    @*<span class="ms-1" data-bs-toggle="tooltip" aria-label="Provide your team size to help us setup your billing" data-bs-original-title="Provide your team size to help us setup your billing" data-kt-initialized="1">
+                                    <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    </i>
+                                    </span>*@
+
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="A new user will be created as the selected user type">
+                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                        </i>
+                                    </span>
+                                </label>
+                                <!--end::Label-->
+                                <!--begin::Row-->
+                                <div class="row mb-2" data-kt-buttons="true">
+                                    <!--begin::Col-->
+                                    @if (ViewBag.Masters.UserTypes != null)
+                                    {
+                                        var count = 1;
+                                        foreach (var item in ViewBag.Masters.UserTypes)
+                                        {
+                                            <div class="col">
+                                                <!--begin::Option-->
+                                                <label class="@(count > 1 ? "btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 active" : "btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4")">
+                                                    <input type="radio" class="btn-check" name="UserTypes" checked="@(count > 1 ? "checked": "")" value="@item.DataValue" tabindex="2">
+                                                    <span class="fw-bold fs-3">@item.DataText</span>
+                                                </label>
+                                                <!--end::Option-->
+                                            </div>
+
+                                            count++;
+                                        }
+                                    }
+                                    <!--end::Col-->
+
+
+                                </div>
+                                <!--end::Row-->
+                                <!--begin::Hint-->
+                                <div class="form-text">A new user will be created as the selected user type</div>
+                                <!--end::Hint-->
+                                <div class="fv-plugins-message-container invalid-feedback"></div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <!--begin::Heading-->
+                            <div class="pb-5">
+                                <!--begin::Title-->
+                                <h2 class="fw-bold d-flex align-items-center text-dark">
+                                    Other Official Information
+                                    <span class="ms-1" data-bs-toggle="tooltip" title="Branch, Designation, User Types">
+                                        <i class="ki-duotone ki-information-5 text-gray-500 fs-6">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                        </i>
+                                    </span>
+                                </h2>
+                                <!--end::Title-->
+                                <!--begin::Notice-->
+                                <div class="text-muted fw-semibold fs-6">
+                                    Branch, Designation, User Types
+                                </div>
+                                <!--end::Notice-->
+                            </div>
+                            <!--end::Heading-->
+
+                            <div class="row pb-5">
+                                <div class="col-md-12">
+                                    <label class="required fw-semibold fs-6 mb-2">Branch</label>
+                                    <select id="ddlBranch" name="BranchId" asp-for="@Model.BranchId" value="" tabindex="3" class="form-select mb-3 mb-md-2" data-kt-select2="true" data-placeholder="Select Branch" data-allow-clear="true">
+                                        <option></option>
+                                        @if (ViewBag.Branches != null)
+                                        {
+                                            foreach (var item in ViewBag.Branches)
+                                            {
+                                                <option value="@item.DataValue">@item.DataText</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span id="errorBranch" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row pb-5">
+                                <div class="col-md-12">
+                                    <label class="required fw-semibold fs-6 mb-2">Designation</label>
+                                    <select id="ddlDesignation" name="DesignationId" asp-for="@Model.DesignationId" tabindex="4" value="" class="form-select mb-3 mb-md-2" data-kt-select2="true" data-placeholder="Select Designation" data-allow-clear="true">
+                                        <option></option>
+                                        @if (ViewBag.Designations != null)
+                                        {
+                                            foreach (var item in ViewBag.Designations)
+                                            {
+                                                <option value="@item.DataValue">@item.DataText</option>
+                                            }
+                                        }
+                                    </select>
+                                    <span id="errorDesignation" class="text-danger"></span>
+                                </div>
+                            </div>
+                             
+                            <div class="row pb-5">
+                                <div class="col-md-12">
+                                    <label class="fw-semibold fs-6 mb-2">Reporting To</label>
+                                    <select id="ddlReportingTo" name="ReportingTo" asp-for="@Model.ReportingTo" tabindex="5" value="" class="form-select mb-3 mb-md-2" data-kt-select2="true" data-placeholder="Select Reporting To" data-allow-clear="true">
+                                        <option></option>
+                                        @if (ViewBag.ReportingTo != null)
+                                        {
+                                            foreach (var item in ViewBag.ReportingTo)
+                                            {
+                                                <option value="@item.DataValue">@item.DataText</option>
+                                            }
+                                        }
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                <!--end::Step 1-->
+                <!--begin::Step 2-->
+                <div data-kt-stepper-element="content">
+                    <!--begin::Wrapper-->
+                    <div class="w-100">
+                        <!--begin::Heading-->
+                        <div class="pb-10 pb-lg-12">
+                            <!--begin::Title-->
+                            <h2 class="fw-bold text-dark">Personal Information</h2>
+                            <!--end::Title-->
+                            <!--begin::Notice-->
+                            <div class="text-muted fw-semibold fs-6">
+                                Kindly provide the personal information like - name, email, phone, date of birth etc.
+                            </div>
+                            <!--end::Notice-->
+                        </div>
+                        <!--end::Heading-->
+
+                        <div class="row pb-5">
+                            <div class="col-md-4">
+                                <label class="required fw-semibold fs-6 mb-2">Name</label>
+                                @Html.TextBoxFor(m=> m.Name, new { @type="text", @id="Name", @name="Name", @class="form-control mb-3 mb-md-2",
+                                @placeholder="Full name", @value="", @tabindex=6})
+                                <span id="errorName" class="text-danger mt-5"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="required fw-semibold fs-6 mb-2">Employee Code</label>
+                                @Html.TextBoxFor(m=> m.EmployeeCode, new { @type="text", @id="EmployeeCode", @name="EmployeeCode", @class="form-control mb-3 mb-md-2",
+                                @placeholder="Employee code", @value="", @tabindex=7})
+                                <span id="errorEmployeeCode" class="text-danger mt-5"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="required fw-semibold fs-6 mb-2">Email</label>
+                                @Html.TextBoxFor(m=> m.Email, new { @type="email", @id="Email", @name="Email", @class="form-control mb-3 mb-md-2",
+                                @placeholder="Email address", @value="", @tabindex=8})
+                                <span id="errorEmail" class="text-danger mt-5"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="row pb-5">
+                            <div class="col-md-4">
+                                <label class="fw-semibold fs-6 mb-2">Mobile/Phone</label>
+                                @Html.TextBoxFor(m=> m.Mobile, new { @type="text", @name="Mobile", @class="form-control mb-3 mb-md-2",
+                                @placeholder="Mobile number", @value="", @tabindex=9})
+                                <span id="errorMobile" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="fw-semibold fs-6 mb-2">Date of Birth</label>
+                                @Html.TextBoxFor(m=> m.DOB, new { @type="text", @name="DOB", @class="form-control mb-3 mb-md-2",
+                                @placeholder="Date of birth", @value="", @tabindex=10})
+                                <span id="errorDOB" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="required fw-semibold fs-6 mb-2">Gender</label>
+                                <select id="ddlGender" name="GenderId" asp-for="@Model.GenderId" tabindex="11" value="" class="form-select mb-3 mb-md-2" data-kt-select2="true" data-placeholder="Select Gender" data-allow-clear="true">
+                                    <option></option>
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                    <option value="3">Others</option>
+
+                                </select>
+                                <span id="errorGender" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row pb-5">
+                            <div class="col-md-4">
+                                <label class="fw-semibold fs-6 mb-2">Blood Group</label>
+                                <select id="ddlBloodGroup" name="BloodGroupId" asp-for="@Model.BloodGroupId" tabindex="12" value="" class="form-select mb-3 mb-md-2" data-kt-select2="true" data-placeholder="Select Blood Group" data-allow-clear="true">
+                                    <option></option>
+                                    @if (ViewBag.Masters != null)
+                                    {
+                                        if (ViewBag.Masters.BloodGroups != null)
+                                        {
+                                            foreach (var item in ViewBag.Masters.BloodGroups)
+                                            {
+                                                <option value="@item.DataValue">@item.DataText</option>
+                                            }
+                                        }
+                                    }
+                                </select>
+                                <span id="errorBloodGroup" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="fw-semibold fs-6 mb-2">PAN</label>
+                                @Html.TextBoxFor(m=> m.PAN, new { @type="text", @name="PAN", @class="form-control mb-3 mb-md-2",
+                                @placeholder="PAN", @value="", @tabindex=15})
+                                <span id="errorPAN" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="fw-semibold fs-6 mb-2">Aadhar Number</label>
+                                @Html.TextBoxFor(m=> m.AadharNo, new { @type="text", @name="AadharNo", @class="form-control mb-3 mb-md-2",
+                                @placeholder="Aadhar number", @value="", @tabindex=16})
+                                <span id="errorAadharNo" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row pb-5">
+ 
+                            <div class="col-md-4">
+                                <label class="fw-semibold fs-6 mb-2">Marital Status</label>
+                                <select id="ddlMaritalStatus" name="MaritalStatusId" asp-for="@Model.MaritalStatusId" tabindex="13" value="" class="form-select mb-3 mb-md-2" data-kt-select2="true" data-placeholder="Select Marital Status" data-allow-clear="true">
+                                    <option></option>
+                                    <option value="1">Married</option>
+                                    <option value="2">Unmarried</option>
+                                </select>
+                                <span id="errorMaritalStatus" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4">
+
+                                @Html.LabelFor(m=> m.SpouseName, "Spouse Name", new {@style = "display:none", @id="lblSpouseName", @class="fw-semibold fs-6 mb-2"})
+
+                                @*<label class="fw-semibold fs-6 mb-2">Spouse Name</label>*@
+                                @Html.TextBoxFor(m=> m.SpouseName, new { @style = "display:none", @type="text", @id="SpouseName", @name="SpouseName", @class="form-control mb-3 mb-md-2",
+                                @placeholder="Spouse name", @value="", @tabindex=14})
+                                <span id="errorSpouseName" class="text-danger"></span>
+                            </div>
+                        </div>
+ 
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                <!--end::Step 2-->
+                <!--begin::Step 3-->
+                <div data-kt-stepper-element="content">
+                    <!--begin::Wrapper-->
+                    <div class="w-100">
+                        <!--begin::Heading-->
+                        <div class="pb-10 pb-lg-12">
+                            <!--begin::Title-->
+                            <h2 class="fw-bold text-dark">Emergency Details</h2>
+                            <!--end::Title-->
+                            <!--begin::Notice-->
+                            <div class="text-muted fw-semibold fs-6">
+                                Please provide information whom to contact in case of any emergency.
+                            </div>
+                            <!--end::Notice-->
+                        </div>
+                        <!--end::Heading-->
+
+                         <div class="row pb-5">
+                            <div class="col-md-4">
+                                <label class="fw-semibold fs-6 mb-2">Emergency Person Name</label>
+                                @Html.TextBoxFor(m=> m.EmergencyPerson, new { @type="text", @id="EmergencyPerson", @name="EmergencyPerson", @class="form-control mb-3 mb-md-2",
+                                @placeholder="Emergency person name", @value="", @tabindex=6})
+                                <span id="errorEmergencyPerson" class="text-danger mt-5"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="fw-semibold fs-6 mb-2">Emergency Contact</label>
+                                @Html.TextBoxFor(m=> m.EmergencyContact, new { @type="text", @id="EmergencyContact", @name="EmergencyContact", @class="form-control mb-3 mb-md-2",
+                                @placeholder="Emergency contact", @value="", @tabindex=7})
+                                <span id="errorEmergencyContact" class="text-danger mt-5"></span>
+                            </div>
+                             
+                        </div>
+
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                <!--end::Step 3-->
+                <!--begin::Actions-->
+                <div class="d-flex flex-stack pt-15">
+                    <!--begin::Wrapper-->
+                    <div class="mr-2">
+                        <button type="button" class="btn btn-lg btn-light-primary me-3" data-kt-stepper-action="previous">
+                            <i class="ki-duotone ki-arrow-left fs-4 me-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>Back
+                        </button>
+                    </div>
+                    <!--end::Wrapper-->
+                    <!--begin::Wrapper-->
+                    <div>
+                        <button type="button" class="btn btn-lg btn-primary me-3" data-kt-stepper-action="submit">
+                            <span class="indicator-label">
+                                Submit
+                                <i class="ki-duotone ki-arrow-right fs-3 ms-2 me-0">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="indicator-progress">
+                                Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                            </span>
+                        </button>
+                        <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
+                            Continue
+                            <i class="ki-duotone ki-arrow-right fs-4 ms-1 me-0">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </button>
+                    </div>
+                    <!--end::Wrapper-->
+                </div>
+                <!--end::Actions-->
+            </form>
+            <!--end::Form-->
+        </div>
+        <!--end::Stepper-->
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/custom/js/user/userstepper.js"></script>
+    <script src="~/custom/js/user/usercrud.js"></script>
+}

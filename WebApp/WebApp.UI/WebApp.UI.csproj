@@ -13,6 +13,7 @@
   <ItemGroup>
     <Folder Include="Core\APIRoutes\" />
     <Folder Include="Core\ControllerExtensions\" />
+    <Folder Include="wwwroot\custom\js\shared\" />
   </ItemGroup>
 
   <ItemGroup>

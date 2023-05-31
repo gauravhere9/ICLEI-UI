@@ -294,53 +294,109 @@ namespace WebApp.UI.Controllers
         }
 
         [HttpGet]
-        [Route("{id}", Name = "AddOrUpdateUser")]
-        public async Task<IActionResult> AddOrUpdateUser([FromRoute] int id)
+        [Route("add-user", Name = "AddUserLoad")]
+        public async Task<IActionResult> AddUser()
         {
             await BindCompanies();
             await BindBranches();
             await BindDesignations();
             await BindMasterDropdown();
 
-            if (id <= 0)
-            {
-                AddSiteUserRequestDto requestDto = new AddSiteUserRequestDto();
-                return await Task.Run(() => PartialView("_AddUser", requestDto));
-            }
-            else
-            {
-                var user = await _appClient.GetUserDetailsAsync(id);
-                UpdateSiteUserRequestDto requestDto = new UpdateSiteUserRequestDto();
-
-                if (user.Success)
-                {
-                    if (user.Data != null)
-                    {
-                        requestDto.Id = user.Data.Id;
-                        requestDto.Name = user.Data.Name;
-                        requestDto.EmployeeCode = user.Data.EmployeeCode;
-                        requestDto.Email = user.Data.Email;
-                        requestDto.Mobile = user.Data.Mobile;
-                        requestDto.PAN = user.Data.PAN;
-                        requestDto.AadharNo = user.Data.AadharNo;
-                        requestDto.BranchId = user.Data.BranchId;
-                        requestDto.BloodGroupId = user.Data.BloodGroupId != null ? (BloodGroupTypes)user.Data.BloodGroupId : null;
-                        requestDto.DesignationId = user.Data.DesignationId;
-                        requestDto.DOB = user.Data.DOB;
-                        requestDto.ReportingTo = user.Data.ReportingTo;
-                        requestDto.EmergencyContact = user.Data.EmergencyContact;
-                        requestDto.EmergencyPerson = user.Data.EmergencyPerson;
-                        requestDto.GenderId = (GenderTypes)user.Data.GenderId;
-                        requestDto.MaritalStatusId = user.Data.MaritalStatusId != null ? (MaritalStatus)user.Data.MaritalStatusId : null;
-                        requestDto.SpouseName = user.Data.SpouseName;
-                        requestDto.UserTypeId = (UserTypes)user.Data.UserTypeId;
-
-                    }
-                }
-
-                return await Task.Run(() => PartialView("_UpdateUser", requestDto));
-            }
+            AddSiteUserRequestDto requestDto = new AddSiteUserRequestDto();
+            return await Task.Run(() => View());
         }
+
+        [HttpGet]
+        [Route("{id}/update-user", Name = "UpdateUserLoad")]
+        public async Task<IActionResult> UpdateUser([FromRoute] int id)
+        {
+            await BindCompanies();
+            await BindBranches();
+            await BindDesignations();
+            await BindMasterDropdown();
+
+            var user = await _appClient.GetUserDetailsAsync(id);
+            UpdateSiteUserRequestDto requestDto = new UpdateSiteUserRequestDto();
+
+            if (user.Success)
+            {
+                if (user.Data != null)
+                {
+                    requestDto.Id = user.Data.Id;
+                    requestDto.Name = user.Data.Name;
+                    requestDto.EmployeeCode = user.Data.EmployeeCode;
+                    requestDto.Email = user.Data.Email;
+                    requestDto.Mobile = user.Data.Mobile;
+                    requestDto.PAN = user.Data.PAN;
+                    requestDto.AadharNo = user.Data.AadharNo;
+                    requestDto.BranchId = user.Data.BranchId;
+                    requestDto.BloodGroupId = user.Data.BloodGroupId != null ? (BloodGroupTypes)user.Data.BloodGroupId : null;
+                    requestDto.DesignationId = user.Data.DesignationId;
+                    requestDto.DOB = user.Data.DOB;
+                    requestDto.ReportingTo = user.Data.ReportingTo;
+                    requestDto.EmergencyContact = user.Data.EmergencyContact;
+                    requestDto.EmergencyPerson = user.Data.EmergencyPerson;
+                    requestDto.GenderId = (GenderTypes)user.Data.GenderId;
+                    requestDto.MaritalStatusId = user.Data.MaritalStatusId != null ? (MaritalStatus)user.Data.MaritalStatusId : null;
+                    requestDto.SpouseName = user.Data.SpouseName;
+                    requestDto.UserTypeId = (UserTypes)user.Data.UserTypeId;
+
+                }
+            }
+
+            return await Task.Run(() => View());
+        }
+
+
+
+        //[HttpGet]
+        //[Route("{id}", Name = "AddOrUpdateUser")]
+        //public async Task<IActionResult> AddOrUpdateUser([FromRoute] int id)
+        //{
+        //    await BindCompanies();
+        //    await BindBranches();
+        //    await BindDesignations();
+        //    await BindMasterDropdown();
+
+        //    if (id <= 0)
+        //    {
+        //        AddSiteUserRequestDto requestDto = new AddSiteUserRequestDto();
+        //        return await Task.Run(() => PartialView("_AddUser", requestDto));
+        //    }
+        //    else
+        //    {
+        //        var user = await _appClient.GetUserDetailsAsync(id);
+        //        UpdateSiteUserRequestDto requestDto = new UpdateSiteUserRequestDto();
+
+        //        if (user.Success)
+        //        {
+        //            if (user.Data != null)
+        //            {
+        //                requestDto.Id = user.Data.Id;
+        //                requestDto.Name = user.Data.Name;
+        //                requestDto.EmployeeCode = user.Data.EmployeeCode;
+        //                requestDto.Email = user.Data.Email;
+        //                requestDto.Mobile = user.Data.Mobile;
+        //                requestDto.PAN = user.Data.PAN;
+        //                requestDto.AadharNo = user.Data.AadharNo;
+        //                requestDto.BranchId = user.Data.BranchId;
+        //                requestDto.BloodGroupId = user.Data.BloodGroupId != null ? (BloodGroupTypes)user.Data.BloodGroupId : null;
+        //                requestDto.DesignationId = user.Data.DesignationId;
+        //                requestDto.DOB = user.Data.DOB;
+        //                requestDto.ReportingTo = user.Data.ReportingTo;
+        //                requestDto.EmergencyContact = user.Data.EmergencyContact;
+        //                requestDto.EmergencyPerson = user.Data.EmergencyPerson;
+        //                requestDto.GenderId = (GenderTypes)user.Data.GenderId;
+        //                requestDto.MaritalStatusId = user.Data.MaritalStatusId != null ? (MaritalStatus)user.Data.MaritalStatusId : null;
+        //                requestDto.SpouseName = user.Data.SpouseName;
+        //                requestDto.UserTypeId = (UserTypes)user.Data.UserTypeId;
+
+        //            }
+        //        }
+
+        //        return await Task.Run(() => PartialView("_UpdateUser", requestDto));
+        //    }
+        //}
 
         [HttpPost]
         [Route("adduser", Name = "AddUser")]
@@ -472,6 +528,23 @@ namespace WebApp.UI.Controllers
             }
 
             return new { message = result.Message ?? "Success", statuscode = result.StatusCode };
+        }
+
+        [HttpGet]
+        [Route("{branchId}/reporting-to", Name = "BindReportingTo")]
+        public async Task<object> BindReportingToDropdown([FromRoute] int branchId)
+        {
+            ViewBag.ReportingTo = null;
+
+            var result = await _appClient.GetUserDropdownAsync(branchId);
+
+            if (result.Success)
+            {
+                ViewBag.ReportingTo = result.Data;
+            }
+
+            return result;
+
         }
     }
 }

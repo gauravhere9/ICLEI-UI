@@ -79,9 +79,15 @@
                 </button>
 
                 <!--begin::Add user-->
-                <button type="button" class="btn btn-primary" onclick="AddOrUpdate(0)">
+                @*<button type="button" class="btn btn-primary" onclick="AddOrUpdate(0)">
                     <i class="ki-duotone ki-plus fs-2"></i>Add User
-                </button>
+                </button>*@
+                <a class="btn btn-primary" href="/users/add-user">
+                    <i class="ki-duotone ki-plus fs-2"></i>Add User
+                    </a>
+                @*<a asp-action="add-user" asp-controller="Users" class="btn btn-primary">
+                    <i class="ki-duotone ki-plus fs-2"></i>Add User
+                </a>*@
 
                 <!--end::Add user-->
             </div>
@@ -168,7 +174,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="6" class="table-td-padding-75rem" style="text-align:center;">
+                                    <td colspan="8" class="table-td-padding-75rem" style="text-align:center;">
                                         <span class="text-danger">No Record Found</span>
                                     </td>
                                 </tr>
@@ -188,7 +194,7 @@
 <!--begin::Modal - Add Update user-->
 <div class="modal fade" id="kt_modal_user" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-650px">
+    <div class="modal-dialog modal-dialog-centered mw-900px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
@@ -219,6 +225,7 @@
 </div>
 <!--end::Modal - Add Update user-->
 @section Scripts{
-    <script src="custom/js/user/usercrud.js"></script>
+ 
+    @*<script src="custom/js/user/usercrud.js"></script>*@
 }
 

@@ -262,11 +262,11 @@ namespace WebApp.UI.Core.Proxy.Client
             return response;
         }
 
-        public async Task<ApiResponse<DropdownDto>> GetBranchDropdownAsync()
+        public async Task<ApiResponse<IList<DropdownDto>>> GetBranchDropdownAsync()
         {
             var url = $"api/v1/branch/dropdown";
 
-            var response = await InvokeAPI<DropdownDto>(null, url, HttpMethodTypes.Get);
+            var response = await InvokeAPI<IList<DropdownDto>>(null, url, HttpMethodTypes.Get);
 
             return response;
         }
@@ -331,11 +331,11 @@ namespace WebApp.UI.Core.Proxy.Client
             return response;
         }
 
-        public async Task<ApiResponse<DropdownDto>> GetDesignationDropdownAsync()
+        public async Task<ApiResponse<IList<DropdownDto>>> GetDesignationDropdownAsync()
         {
             var url = $"api/v1/designations/dropdown";
 
-            var response = await InvokeAPI<DropdownDto>(null, url, HttpMethodTypes.Get);
+            var response = await InvokeAPI<IList<DropdownDto>>(null, url, HttpMethodTypes.Get);
 
             return response;
         }
@@ -407,16 +407,16 @@ namespace WebApp.UI.Core.Proxy.Client
         {
             var url = $"api/v1/users/{id}";
 
-            var response = await InvokeAPI<SiteUserResponseDto>(null, url, HttpMethodTypes.Patch);
+            var response = await InvokeAPI<SiteUserResponseDto>(null, url, HttpMethodTypes.Get);
 
             return response;
         }
 
-        public async Task<ApiResponse<DropdownDto>> GetUserDropdownAsync(int branchId)
+        public async Task<ApiResponse<IList<DropdownDto>>> GetUserDropdownAsync(int branchId)
         {
             var url = $"api/v1/users/{branchId}/dropdown";
 
-            var response = await InvokeAPI<DropdownDto>(null, url, HttpMethodTypes.Get);
+            var response = await InvokeAPI<IList<DropdownDto>>(null, url, HttpMethodTypes.Get);
 
             return response;
         }

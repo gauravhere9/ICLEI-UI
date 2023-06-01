@@ -32,7 +32,7 @@
             </div>
             <!--end::Nav-->
             <!--begin::Form-->
-            <form class="mx-auto mw-900px w-100 py-10" novalidate="novalidate" id="addForm" method="post">
+            <form class="mx-auto mw-900px w-100 py-10" novalidate="novalidate" id="addUserForm" method="post">
                 <!--begin::Step 1-->
                 <div class="current" data-kt-stepper-element="content">
                     <!--begin::Wrapper-->
@@ -135,7 +135,7 @@
                                             <div class="col">
                                                 <!--begin::Option-->
                                                 <label class="@(count > 1 ? "btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4 active" : "btn btn-outline btn-outline-dashed btn-active-light-primary w-100 p-4")">
-                                                    <input type="radio" class="btn-check" name="UserTypes" checked="@(count > 1 ? "checked": "")" value="@item.DataValue" tabindex="2">
+                                                    <input type="radio" class="btn-check" name="UserTypeId" checked="@(count > 1 ? "checked": "")" value="@item.DataValue" tabindex="2">
                                                     <span class="fw-bold fs-3">@item.DataText</span>
                                                 </label>
                                                 <!--end::Option-->

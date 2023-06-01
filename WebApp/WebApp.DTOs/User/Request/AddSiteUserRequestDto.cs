@@ -42,10 +42,6 @@ namespace WebApp.DTOs.User.Request
         [DefaultValue(0)]
         [Range(1, int.MaxValue, ErrorMessage = "Please enter correct designation")]
         public int? DesignationId { get; set; }
-
-        [Required(ErrorMessage = "Reporting to is required")]
-        [DefaultValue(0)]
-        [Range(1, int.MaxValue, ErrorMessage = "Please enter correct reporting to")]
         public int? ReportingTo { get; set; }
         public string? PAN { get; set; } = string.Empty;
         public string? AadharNo { get; set; } = string.Empty;

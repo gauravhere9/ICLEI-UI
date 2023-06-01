@@ -11,8 +11,9 @@
         </button>
 
         <br />
-        
-        <span class="badge badge-light-info fw-bold align-center">@Model.GenderName</span>
+
+        <span class="@(Model.GenderId == 1 ? "badge badge-light-info fw-bold align-center" : "badge badge-light-danger fw-bold align-center")">@Model.GenderName</span>
+
         @if (Model.MaritalStatusId != null && Model.MaritalStatusId > 0)
         {
             <span class="badge badge-light-warning fw-bold align-center">@Model.MaritalStatusName</span>
@@ -32,8 +33,8 @@
         </button>
 
         <br />
-        
-        <span class="badge badge-light-info fw-bold align-center">@Model.GenderName</span>
+
+        <span class="@(Model.GenderId == 1 ? "badge badge-light-info fw-bold align-center" : "badge badge-light-danger fw-bold align-center")">@Model.GenderName</span>
         @if (Model.MaritalStatusId != null && Model.MaritalStatusId > 0)
         {
             <span class="badge badge-light-warning fw-bold align-center">@Model.MaritalStatusName</span>

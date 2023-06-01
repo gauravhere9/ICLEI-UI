@@ -34,7 +34,7 @@ var KTCreateAccount = function () {
                     e.preventDefault();
                     addUserDetails();
                 })),
-                $(i.querySelector('[name="BranchId"]')).on("change",
+                $("#ddlBranch").on("change",
                     (function () {
                         if ($("#ddlBranch").val() <= 0 || $("#ddlBranch").val() == "undefined") {
                             $("#errorBranch").text("Branch is required");
@@ -44,7 +44,7 @@ var KTCreateAccount = function () {
                         }
                     })),
 
-                $(i.querySelector('[name="DesignationId"]')).on("change",
+                $("#ddlDesignation").on("change",
                     (function () {
                         if ($("#ddlDesignation").val() <= 0 || $("#ddlDesignation").val() == "undefined") {
                             $("#errorDesignation").text("Designation is required");
@@ -54,7 +54,7 @@ var KTCreateAccount = function () {
                         }
                     })),
 
-                $(i.querySelector('[name="UserTypeId"]')).on("change",
+                $("#ddlUserType").on("change",
                     (function () {
                         if ($("#ddlUserType").val() <= 0 || $("#ddlUserType").val() == "undefined") {
                             $("#errorUserType").text("User type is required");
@@ -64,7 +64,7 @@ var KTCreateAccount = function () {
                         }
                     })),
 
-                $(i.querySelector('[name="GenderId"]')).on("change",
+                $("#ddlGender").on("change",
                     (function () {
                         if ($("#ddlGender").val() <= 0 || $("#ddlGender").val() == "undefined") {
                             $("#errorGender").text("Gender is required");
@@ -74,7 +74,7 @@ var KTCreateAccount = function () {
                         }
                     })),
 
-                $(i.querySelector('[name="MaritalStatusId"]')).on("change",
+                $("#ddlMaritalStatus").on("change",
                     (function () {
                         if ($("#ddlMaritalStatus").val() > 0) {
 
@@ -153,7 +153,7 @@ var addUserDetails = function () {
 
     if (validateStep1()) {
         if (validateStep2()) {
-            var myformdata = $("#addForm").serialize();
+            var myformdata = $("#addUserForm").serialize();
 
             console.log(myformdata);
 

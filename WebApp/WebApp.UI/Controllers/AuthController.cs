@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using WebApp.DTOs.Auth.Login.Request;
 using WebApp.DTOs.Auth.Login.Response;
+using WebApp.DTOs.Auth.Password.Request;
 using WebApp.DTOs.Auth.RefreshToken.Request;
 using WebApp.Global.Constants;
 using WebApp.Global.Options;
@@ -115,11 +116,40 @@ namespace WebApp.UI.Controllers
             return await Task.Run(() => View());
         }
 
-        [Route("forgot-password")]
+        [Route("forgot-password", Name = "ForgotPasswordLoad")]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword()
         {
+            return await Task.Run(() => View());
+        }
+
+        [Route("forgot-password", Name = "ForgotPassword")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword([FromForm] AddForgotPasswordRequestDto requestDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _appClient.ForgotPasswordAsync(requestDto);
+
+                if (result.Success)
+                {
+                    ViewBag.JavaScriptFunction = string.Format("ShowSuccessSwal('{0}', '{1}');", result.Message, "/");
+                }
+                else
+                {
+                    StringBuilder sb = new StringBuilder();
+
+                    foreach (var error in result.Errors)
+                    {
+                        sb.Append(error + ". ");
+                    }
+
+                    ViewBag.JavaScriptFunction = string.Format("ShowErrorSwal('{0}');", sb.ToString());
+                }
+            }
+
             return await Task.Run(() => View());
         }
 

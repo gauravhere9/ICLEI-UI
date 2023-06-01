@@ -86,20 +86,20 @@
                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                              
                             <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_designation" rowspan="1" colspan="1" aria-label="designation Code: activate to sort column ascending">
-                                <a asp-action="DesignationIndex" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("Name").SortExpression" class="text-gray-800">
+                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("Name").SortExpression" class="text-gray-800">
                                     Designation Name
                                 </a>
                                 <i class="@sorting?.GetColumn("Name").SortIcon text-info" arial-hidden="true"></i>
                             </th>
                             <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_designation" rowspan="1" colspan="1" aria-label="Location: activate to sort column ascending">
-                                <a asp-action="DesignationIndex" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("Description").SortExpression" class="text-gray-800">
+                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("Description").SortExpression" class="text-gray-800">
                                     Description
                                 </a>
                                 <i class="@sorting?.GetColumn("Description").SortIcon text-info" arial-hidden="true"></i>
                             </th>
                             
                             <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_designation" rowspan="1" colspan="1" aria-label="Created Date: activate to sort column ascending">
-                                <a asp-action="DesignationIndex" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("CreatedDate").SortExpression" class="text-gray-800">
+                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("CreatedDate").SortExpression" class="text-gray-800">
                                     Created Date
                                 </a>
                                 <i class="@sorting?.GetColumn("CreatedDate").SortIcon text-info" arial-hidden="true"></i>

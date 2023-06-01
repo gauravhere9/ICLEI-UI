@@ -303,7 +303,7 @@ namespace WebApp.UI.Controllers
             await BindMasterDropdown();
 
             AddSiteUserRequestDto requestDto = new AddSiteUserRequestDto();
-            return await Task.Run(() => View());
+            return await Task.Run(() => View(requestDto));
         }
 
         [HttpGet]
@@ -344,7 +344,7 @@ namespace WebApp.UI.Controllers
                 }
             }
 
-            return await Task.Run(() => View());
+            return await Task.Run(() => View(requestDto));
         }
 
 

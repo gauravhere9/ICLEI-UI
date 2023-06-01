@@ -13,12 +13,7 @@
         <br />
 
         <span class="@(Model.GenderId == 1 ? "badge badge-light-info fw-bold align-center" : "badge badge-light-danger fw-bold align-center")">@Model.GenderName</span>
-
-        @if (Model.MaritalStatusId != null && Model.MaritalStatusId > 0)
-        {
-            <span class="badge badge-light-warning fw-bold align-center">@Model.MaritalStatusName</span>
-        }
-        
+         
         @if (Model.UserTypeId > 0)
         {
             <span class="badge badge-light-primary fw-bold align-center">@Model.UserTypeName</span>
@@ -35,11 +30,7 @@
         <br />
 
         <span class="@(Model.GenderId == 1 ? "badge badge-light-info fw-bold align-center" : "badge badge-light-danger fw-bold align-center")">@Model.GenderName</span>
-        @if (Model.MaritalStatusId != null && Model.MaritalStatusId > 0)
-        {
-            <span class="badge badge-light-warning fw-bold align-center">@Model.MaritalStatusName</span>
-        }
-        
+         
         @if (Model.UserTypeId > 0)
         {
             <span class="badge badge-light-primary fw-bold align-center">@Model.UserTypeName</span>
@@ -68,7 +59,11 @@
         {
             <!--begin::Menu item-->
             <div class="menu-item px-3">
-                <button type="button" id="btnEdit" class="menu-link px-3 btn-backgroud-none-border-none-width-100" onclick="AddOrUpdate(@Model.Id)">Edit</button>
+                @*<button type="button" id="btnEdit" class="menu-link px-3 btn-backgroud-none-border-none-width-100" onclick="AddOrUpdate(@Model.Id)">Edit</button>*@
+
+                <a href="@("users/" + Model.Id + "/update-user")" class="menu-link px-3 btn-backgroud-none-border-none-width-100">
+                    Edit
+                </a>
             </div>
         }
         <!--end::Menu item-->

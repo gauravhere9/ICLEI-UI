@@ -18,10 +18,17 @@ var KTCreateAccount = function () {
                 r.on("kt.stepper.next", (function (e) {
                     var xx = e.getCurrentStepIndex() - 1;
                     if (xx == 0) {
+                        // Validate Official Information
                         if (validateStep1()) {
                             (e.goNext(), KTUtil.scrollTop())
                         }
+
+                        //Reset STEP 2 Error Controls
+                        ResetStep2Errors();
+
                     } else if (xx == 1) {
+
+                        // Validate Personal Information
                         if (validateStep2()) {
                             (e.goNext(), KTUtil.scrollTop())
                         }
@@ -32,7 +39,7 @@ var KTCreateAccount = function () {
                 })),
                 o.addEventListener("click", (function (e) {
                     e.preventDefault();
-                    addUserDetails();
+                    addORUpdateUserDetails();
                 })),
                 $("#ddlBranch").on("change",
                     (function () {
@@ -91,7 +98,10 @@ var KTCreateAccount = function () {
                             $("#lblSpouseName").hide();
                             $("#SpouseName").hide();
                         }
-                    }))
+                    })),
+
+                $("#DOB").flatpickr({ enableTime: !0, dateFormat: "d, M Y, H:i" })
+
             )
         }
     }
@@ -144,31 +154,71 @@ var validateStep2 = function () {
         $("#errorGender").text("Gender is required");
 
     }
+ 
+    if ($("#Mobile").val().trim() === "") {
+        $("#errorMobile").text("");
+    }
+    else {
+        var mobileValue = $("#Mobile").val();
 
+        var regex1 = new RegExp('^([+]\d{2}[ ])?\d{10}$');
+        var regex2 = new RegExp('0{5,}');
+
+        var isMatched1 = regex1.test(mobileValue);
+        var isMatched2 = regex2.test(mobileValue);
+
+        if (!isMatched1 || !isMatched2) {
+            result = false;
+            $("#errorMobile").text("Mobile/Phone number is not in a valid format");
+        }
+        else {
+            $("#errorMobile").text("");
+        }
+    }
+ 
     return result;
 }
 
+var ResetStep2Errors = function () {
+    $("#errorName").text("");
+    $("#errorEmployeeCode").text("");
+    $("#errorEmail").text("");
+    $("#errorGender").text("");
+}
 
-var addUserDetails = function () {
-
+var addORUpdateUserDetails = function () {
     if (validateStep1()) {
         if (validateStep2()) {
-            var myformdata = $("#addUserForm").serialize();
+            var myformdata = $("#userForm").serialize();
 
-            console.log(myformdata);
+            var _url = "";
+            var _method = "";
+            var _successMessage = "";
 
+            var id = $("#Id").val();
+
+            if (id != "undefined" || id > 0) {
+                _url = "/users/updateuser";
+                _method = "PUT";
+                _successMessage = "User is updated successfully !";
+            }
+            else {
+                _url = "/users/adduser";
+                _method = "POST";
+                _successMessage = "User is added successfully !";
+            }
+ 
             $.ajax({
-                type: "POST",
-                url: "/users/adduser",
+                type: _method,
+                url: _url,
                 data: myformdata,
                 success: function (result) {
-
                     if (result != null) {
                         if (result.statuscode != 200) {
                             ShowErrorSwal(result.message);
                         }
                         else {
-                            ShowSuccessSwal("User is added successfully !", "/users?sortExpression=Id_Desc");
+                            ShowSuccessSwal(_successMessage, "/users?sortExpression=Id_Desc");
                         }
                     }
                 },

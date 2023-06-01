@@ -1,10 +1,9 @@
 ﻿@using WebApp.DTOs.User.Request;
-@model AddSiteUserRequestDto
+@model UpdateSiteUserRequestDto
 @{
-    ViewData["Title"] = "Add User";
+    ViewData["Title"] = "Update User";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="card container-height-100-per">
 
     <!--begin::Card body-->
@@ -37,6 +36,7 @@
                 <div class="current" data-kt-stepper-element="content">
                     <!--begin::Wrapper-->
                     <div class="row w-100">
+                        <input hidden="hidden" value="@Model.Id" name="Id" />
 
                         <div class="col-md-6">
 
@@ -278,28 +278,14 @@
                         <div class="row pb-5">
                             <div class="col-md-4">
                                 <label class="fw-semibold fs-6 mb-2">Mobile/Phone</label>
-                                @Html.TextBoxFor(m=> m.Mobile, new { @type="text",@id="Mobile", @name="Mobile", @class="form-control mb-3 mb-md-2",
+                                @Html.TextBoxFor(m=> m.Mobile, new { @type="text", @id="Mobile", @name="Mobile", @class="form-control mb-3 mb-md-2",
                                 @placeholder="Mobile number", @value="", @tabindex=9})
                                 <span id="errorMobile" class="text-danger"></span>
                             </div>
                             <div class="col-md-4">
                                 <label class="fw-semibold fs-6 mb-2">Date of Birth</label>
-                                <div class="position-relative d-flex align-items-center">
-                                    <!--begin::Icon-->
-                                    <i class="ki-duotone ki-calendar-8 fs-2 position-absolute mx-4">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                        <span class="path4"></span>
-                                        <span class="path5"></span>
-                                        <span class="path6"></span>
-                                    </i>
-                               
-                                <!--end::Icon-->
-                                @Html.TextBoxFor(m=> m.DOB, new { @type="text", @name="DOB", @class="form-control ps-12",
+                                @Html.TextBoxFor(m=> m.DOB, new { @type="text", @name="DOB", @class="form-control mb-3 mb-md-2",
                                 @placeholder="Date of birth", @value="", @tabindex=10})
-                                </div>
-
                                 <span id="errorDOB" class="text-danger"></span>
                             </div>
                             <div class="col-md-4">
@@ -336,7 +322,7 @@
                             <div class="col-md-4">
                                 <label class="fw-semibold fs-6 mb-2">PAN</label>
                                 @Html.TextBoxFor(m=> m.PAN, new { @type="text", @name="PAN", @class="form-control mb-3 mb-md-2",
-                                @placeholder="PAN", @value="", @tabindex=15, @minlength=10, @maxlength=10})
+                                @placeholder="PAN", @value="", @tabindex=15})
                                 <span id="errorPAN" class="text-danger"></span>
                             </div>
                             <div class="col-md-4">

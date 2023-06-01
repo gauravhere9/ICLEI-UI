@@ -335,13 +335,13 @@
                             </div>
                             <div class="col-md-4">
                                 <label class="fw-semibold fs-6 mb-2">PAN</label>
-                                @Html.TextBoxFor(m=> m.PAN, new { @type="text", @name="PAN", @class="form-control mb-3 mb-md-2",
+                                @Html.TextBoxFor(m=> m.PAN, new { @type="text",@id="PAN", @name="PAN", @class="form-control mb-3 mb-md-2",
                                 @placeholder="PAN", @value="", @tabindex=15, @minlength=10, @maxlength=10})
                                 <span id="errorPAN" class="text-danger"></span>
                             </div>
                             <div class="col-md-4">
                                 <label class="fw-semibold fs-6 mb-2">Aadhar Number</label>
-                                @Html.TextBoxFor(m=> m.AadharNo, new { @type="text", @name="AadharNo", @class="form-control mb-3 mb-md-2",
+                                @Html.TextBoxFor(m=> m.AadharNo, new { @type="text",@id="AadharNo", @name="AadharNo", @class="form-control mb-3 mb-md-2",
                                 @placeholder="Aadhar number", @value="", @tabindex=16})
                                 <span id="errorAadharNo" class="text-danger"></span>
                             </div>

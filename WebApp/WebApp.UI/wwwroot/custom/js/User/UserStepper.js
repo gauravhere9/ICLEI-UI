@@ -175,6 +175,44 @@ var validateStep2 = function () {
             $("#errorMobile").text("");
         }
     }
+
+    if ($("#PAN").val().trim() === "") {
+        $("#errorPAN").text("");
+    }
+    else {
+        var panValue = $("#PAN").val();
+
+        var regex1 = new RegExp('^[A-Z]{5}[0-9]{4}[A-Z]{1}$');
+         
+        var isMatched1 = regex1.test(panValue);
+         
+        if (!isMatched1) {
+            result = false;
+            $("#errorPAN").text("PAN is not in a valid format");
+        }
+        else {
+            $("#errorPAN").text("");
+        }
+    }
+
+    if ($("#AadharNo").val().trim() === "") {
+        $("#errorAadharNo").text("");
+    }
+    else {
+        var aadharValue = $("#AadharNo").val();
+
+        var regex1 = new RegExp('^[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}$');
+         
+        var isMatched1 = regex1.test(aadharValue);
+         
+        if (!isMatched1) {
+            result = false;
+            $("#errorAadharNo").text("Aadhar number is not in a valid format");
+        }
+        else {
+            $("#errorAadharNo").text("");
+        }
+    }
  
     return result;
 }

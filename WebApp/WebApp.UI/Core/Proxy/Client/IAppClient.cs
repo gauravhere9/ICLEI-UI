@@ -2,7 +2,7 @@
 
 namespace WebApp.UI.Core.Proxy.Client
 {
-    public interface IAppClient : IAuthService, ICompanyService, IBranchService, IDesignationService, IMasterService, IUserService
+    public interface IAppClient : IAuthService, ICompanyService, IBranchService, IDesignationService, IMasterService, IUserService, IFundingAgency
     {
     }
 }

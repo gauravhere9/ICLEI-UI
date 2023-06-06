@@ -95,6 +95,8 @@ namespace WebApp.UI.Controllers
                     {
                         HttpContext.Session.SetString("X-Access-Token", string.Empty);
 
+                        HttpContext.Session.Clear();
+
                         return Redirect("/");
                     }
                     else
@@ -148,6 +150,10 @@ namespace WebApp.UI.Controllers
 
                     ViewBag.JavaScriptFunction = string.Format("ShowErrorSwal('{0}');", sb.ToString());
                 }
+            }
+            else
+            {
+                ViewBag.JavaScriptFunction = string.Format("ShowErrorSwal('{0}');", "Please enter the username or email.");
             }
 
             return await Task.Run(() => View());

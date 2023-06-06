@@ -12,7 +12,7 @@ namespace WebApp.UI.Core.Proxy.Contracts
         Task<ApiResponse<LoginResponseDto>> LoginAsync(LoginRequestDto requestDto);
         Task<ApiResponse<object>> LogoutAsync(RefreshTokenRequestDto requestDto);
         Task<ApiResponse<RefreshTokenResponseDto>> RefreshTokenAsync(RefreshTokenRequestDto requestDto);
-        Task<ApiResponse<bool>> ForgotPasswordAsync(AddForgotPasswordRequestDto requestDto);
+        Task<ApiResponse<object>> ForgotPasswordAsync(AddForgotPasswordRequestDto requestDto);
         Task<ApiResponse<bool>> ResetPasswordAsync(ResetPasswordRequestDto requestDto);
         Task<ApiResponse<bool>> ChangePasswordAsync(ChangePasswordRequestDto requestDto);
     }

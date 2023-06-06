@@ -1,10 +1,11 @@
-﻿@using WebApp.DTOs.User.Response;
+﻿@using WebApp.DTOs.FundingAgency.Request;
 @using WebApp.Global.Helpers;
+@using WebApp.DTOs.FundingAgency.Response;
 @using WebApp.Global.Shared;
+@using WebApp.UI.Models.FundingAgency;
 @using Microsoft.AspNetCore.Http;
-@using WebApp.UI.Models.User;
 @{
-    ViewData["Title"] = "Users";
+    ViewData["Title"] = "Funding Agencies";
     Layout = "_Layout";
 
     SortingHelper? sorting = (SortingHelper?)ViewData["Sort"];
@@ -18,31 +19,10 @@
         pager = ViewBag.Pager;
         pageNo = pager.CurrentPage;
     }
-
-    SearchUser searchUser = new SearchUser();
-    var _branchId = Context.Session.GetInt32("BranchId");
-
-    if (_branchId > 0)
-    {
-        searchUser.branchId = _branchId;
-    }
-
-    var _designationId = Context.Session.GetInt32("DesignationId");
-
-    if(_designationId > 0)
-    {
-        searchUser.designationId = _designationId;
-    }
-
-    var _userTypeId = Context.Session.GetInt32("UserTypeId");
-
-    if(_userTypeId > 0)
-    {
-        searchUser.userTypeId = _userTypeId;
-    }
+    SearchFundingAgency fundingAgencySearch = new SearchFundingAgency();
 }
 
-@model PagedResponseDto<SiteUserResponseDto>
+@model PagedResponseDto<FundingAgencyResponseDto>
 
 <div class="card">
     <!--begin::Card header-->
@@ -57,7 +37,7 @@
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                     <!--begin::Item-->
                     <li class="breadcrumb-item text-muted">
-                        Over @pager.TotalItems Users
+                        Over @pager.TotalItems Funding Agencies
                     </li>
 
 
@@ -79,15 +59,9 @@
                 </button>
 
                 <!--begin::Add user-->
-                @*<button type="button" class="btn btn-primary" onclick="AddOrUpdate(0)">
-                    <i class="ki-duotone ki-plus fs-2"></i>Add User
-                </button>*@
-                <a class="btn btn-primary" href="/users/add-user">
-                    <i class="ki-duotone ki-plus fs-2"></i>Add User
-                    </a>
-                @*<a asp-action="add-user" asp-controller="Users" class="btn btn-primary">
-                    <i class="ki-duotone ki-plus fs-2"></i>Add User
-                </a>*@
+                <button type="button" class="btn btn-primary" onclick="AddOrUpdate(0)">
+                    <i class="ki-duotone ki-plus fs-2"></i>Add Funding Agency
+                </button>
 
                 <!--end::Add user-->
             </div>
@@ -101,61 +75,53 @@
     <div class="card-body py-4">
 
         <!--SEARCH BAR-->
-        <partial name="_SearchUser" model="@searchUser"></partial>
+        <partial name="_SearchFundingAgency" model="@fundingAgencySearch"></partial>
 
         <!--begin::Table-->
         <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="table-responsive">
-                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_user">
+                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table">
                     <thead>
                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
 
-                            <th class="sorting" tabindex="0" aria-controls="kt_table_user" rowspan="1" colspan="1" aria-label="Full Name: activate to sort column ascending">
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending">
+
                                 <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("Name").SortExpression" class="text-gray-800">
-                                    Full Name
+                                    Name
                                 </a>
                                 <i class="@sorting?.GetColumn("Name").SortIcon text-info" arial-hidden="true"></i>
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="kt_table_user" rowspan="1" colspan="1" aria-label="EmployeeCode: activate to sort column ascending">
-                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("EmployeeCode").SortExpression" class="text-gray-800">
-                                    Employee Code
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table" rowspan="1" colspan="1" aria-label="Contact Person: activate to sort column ascending">
+                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("ContactPerson").SortExpression" class="text-gray-800">
+                                    Contact Person
                                 </a>
-                                <i class="@sorting?.GetColumn("EmployeeCode").SortIcon text-info" arial-hidden="true"></i>
+                                <i class="@sorting?.GetColumn("ContactPerson").SortIcon text-info" arial-hidden="true"></i>
                             </th>
-                            
-                            <th class="sorting" tabindex="0" aria-controls="kt_table_user" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending">
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table" rowspan="1" colspan="1" aria-label="Email: activate to sort column ascending">
                                 <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("Email").SortExpression" class="text-gray-800">
                                     Email
                                 </a>
                                 <i class="@sorting?.GetColumn("Email").SortIcon text-info" arial-hidden="true"></i>
                             </th>
-                            
-                            <th class="sorting" tabindex="0" aria-controls="kt_table_user" rowspan="1" colspan="1" aria-label="Mobile: activate to sort column ascending">
-                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("Mobile").SortExpression" class="text-gray-800">
-                                    Mobile
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table" rowspan="1" colspan="1" aria-label="Phone: activate to sort column ascending">
+                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("Phone").SortExpression" class="text-gray-800">
+                                    Phone
                                 </a>
-                                <i class="@sorting?.GetColumn("Mobile").SortIcon text-info" arial-hidden="true"></i>
+                                <i class="@sorting?.GetColumn("Phone").SortIcon text-info" arial-hidden="true"></i>
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="kt_table_user" rowspan="1" colspan="1" aria-label="BranchName: activate to sort column ascending">
-                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("BranchName").SortExpression" class="text-gray-800">
-                                    Branch
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table" rowspan="1" colspan="1" aria-label="Address: activate to sort column ascending">
+                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("Address").SortExpression" class="text-gray-800">
+                                    Address
                                 </a>
-                                <i class="@sorting?.GetColumn("BranchName").SortIcon text-info" arial-hidden="true"></i>
+                                <i class="@sorting?.GetColumn("Address").SortIcon text-info" arial-hidden="true"></i>
                             </th>
-                            <th class="sorting" tabindex="0" aria-controls="kt_table_user" rowspan="1" colspan="1" aria-label="DesignationName: activate to sort column ascending">
-                                <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("DesignationName").SortExpression" class="text-gray-800">
-                                    Designation
-                                </a>
-                                <i class="@sorting?.GetColumn("DesignationName").SortIcon text-info" arial-hidden="true"></i>
-                            </th>
-
-                            <th class="sorting" tabindex="0" aria-controls="kt_table_user" rowspan="1" colspan="1" aria-label="Created Date: activate to sort column ascending">
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table" rowspan="1" colspan="1" aria-label="Created Date: activate to sort column ascending">
                                 <a asp-action="Index" asp-route-srt="true" asp-route-srtex="@sorting?.GetColumn("CreatedDate").SortExpression" class="text-gray-800">
                                     Created Date
                                 </a>
                                 <i class="@sorting?.GetColumn("CreatedDate").SortIcon text-info" arial-hidden="true"></i>
                             </th>
-                            <th class="text-end sorting_disabled" rowspan="1" colspan="1" aria-label="Actions">Actions</th>
+                            <th class="text-end min-w-125px sorting_disabled" rowspan="1" colspan="1" aria-label="Actions">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-600 fw-semibold">
@@ -167,14 +133,14 @@
                                 {
                                     <tr id="TR_@item.Id">
 
-                                        <partial name="_ListUser" model="@item"></partial>
+                                        <partial name="_ListFundingAgency" model="@item"></partial>
                                     </tr>
                                 }
                             }
                             else
                             {
                                 <tr>
-                                    <td colspan="8" class="table-td-padding-75rem" style="text-align:center;">
+                                    <td colspan="6" class="table-td-padding-75rem" style="text-align:center;">
                                         <span class="text-danger">No Record Found</span>
                                     </td>
                                 </tr>
@@ -191,16 +157,16 @@
     <!--end::Card body-->
 </div>
 
-<!--begin::Modal - Add Update user-->
-<div class="modal fade" id="kt_modal_user" tabindex="-1" aria-hidden="true">
+<!--begin::Modal - Add Update-->
+<div class="modal fade" id="kt_modal" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
-    <div class="modal-dialog modal-dialog-centered mw-900px">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
         <div class="modal-content">
             <!--begin::Modal header-->
             <div class="modal-header" id="kt_modal_add_header">
                 <!--begin::Modal title-->
-                <h2 id="title" class="fw-bold">Add User</h2>
+                <h2 id="title" class="fw-bold">Add Funding Agency</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 @* <button type="button" class="btn btn-light me-3" data-bs-toggle="modal" tabindex=5>Discard</button>*@
@@ -215,7 +181,7 @@
             </div>
             <!--end::Modal header-->
             <!--begin::Modal body-->
-            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7" id="userModelBody">
+            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7" id="fundingAgencyModelBody">
             </div>
             <!--end::Modal body-->
         </div>
@@ -223,8 +189,8 @@
     </div>
     <!--end::Modal dialog-->
 </div>
-<!--end::Modal - Add Update user-->
+<!--end::Modal - Add Update-->
 @section Scripts{
-    <script src="~/custom/js/user/usercrud.js" asp-append-version="true"></script>
+    <script src="~/custom/js/fundingagency/fundingagencycrud.js" asp-append-version="true"></script>
 }
 

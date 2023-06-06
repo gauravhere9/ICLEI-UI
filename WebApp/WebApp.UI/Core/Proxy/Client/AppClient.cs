@@ -13,6 +13,8 @@ using WebApp.DTOs.CompanyInfo.Request;
 using WebApp.DTOs.CompanyInfo.Response;
 using WebApp.DTOs.Designation.Request;
 using WebApp.DTOs.Designation.Response;
+using WebApp.DTOs.FundingAgency.Request;
+using WebApp.DTOs.FundingAgency.Response;
 using WebApp.DTOs.User.Request;
 using WebApp.DTOs.User.Response;
 using WebApp.Global.Extensions;
@@ -126,11 +128,11 @@ namespace WebApp.UI.Core.Proxy.Client
             return response;
         }
 
-        public async Task<ApiResponse<bool>> ForgotPasswordAsync(AddForgotPasswordRequestDto requestDto)
+        public async Task<ApiResponse<object>> ForgotPasswordAsync(AddForgotPasswordRequestDto requestDto)
         {
             var url = $"api/v1/auth/forgot-password";
 
-            var response = await InvokeAPI<bool>(requestDto, url, HttpMethodTypes.Post);
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Post);
 
             return response;
         }
@@ -415,6 +417,75 @@ namespace WebApp.UI.Core.Proxy.Client
         public async Task<ApiResponse<IList<DropdownDto>>> GetUserDropdownAsync(int branchId)
         {
             var url = $"api/v1/users/{branchId}/dropdown";
+
+            var response = await InvokeAPI<IList<DropdownDto>>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        #endregion
+
+        #region Funding Agency Service
+
+        public async Task<ApiResponse<object>> AddFundingAgencyAsync(AddFundingAgencyRequestDto requestDto)
+        {
+            var url = $"api/v1/fundingagency";
+
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Post);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> UpdateFundingAgencyAsync(UpdateFundingAgencyRequestDto requestDto)
+        {
+            var url = $"api/v1/fundingagency";
+
+            var response = await InvokeAPI<object>(requestDto, url, HttpMethodTypes.Put);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> UpdateFundingAgencyStatusAsync(int id)
+        {
+            var url = $"api/v1/fundingagency/{id}";
+
+            var response = await InvokeAPI<object>(null, url, HttpMethodTypes.Patch);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<object>> DeleteFundingAgencyAsync(int id)
+        {
+            var url = $"api/v1/fundingagency/{id}";
+
+            var response = await InvokeAPI<object>(null, url, HttpMethodTypes.Delete);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<PagedResponseDto<FundingAgencyResponseDto>>> GetFundingAgencyWithPSS(SearchFundingAgencyRequestDto requestDto)
+        {
+            var queryString = requestDto.GetQueryString();
+
+            var url = $"api/v1/fundingagency?{queryString}";
+
+            var response = await InvokeAPI<PagedResponseDto<FundingAgencyResponseDto>>(requestDto, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<FundingAgencyResponseDto>> GetFundingAgencyDetailsAsync(int id)
+        {
+            var url = $"api/v1/fundingagency/{id}";
+
+            var response = await InvokeAPI<FundingAgencyResponseDto>(null, url, HttpMethodTypes.Get);
+
+            return response;
+        }
+
+        public async Task<ApiResponse<IList<DropdownDto>>> GetFundingAgencyDropdownAsync()
+        {
+            var url = $"api/v1/fundingagency/dropdown";
 
             var response = await InvokeAPI<IList<DropdownDto>>(null, url, HttpMethodTypes.Get);
 

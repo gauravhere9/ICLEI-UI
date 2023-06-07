@@ -10,7 +10,7 @@ using WebApp.UI.Models.FundingAgency;
 
 namespace WebApp.UI.Controllers
 {
-    [Route("/funding-agencies")]
+    [Route("/fundingagency")]
     public class FundingAgencyController : BaseController
     {
         private readonly ILogger<FundingAgencyController> _logger;

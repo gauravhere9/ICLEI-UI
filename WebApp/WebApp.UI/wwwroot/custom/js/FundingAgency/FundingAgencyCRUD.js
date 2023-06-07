@@ -3,7 +3,7 @@ var AddOrUpdate = function (id) {
 
     resetControls();
 
-    var url = "/funding-agencies/" + id;
+    var url = "/fundingagency/" + id;
     if (id > 0) {
         $('#title').html("Edit Funding Agency");
     }
@@ -82,7 +82,7 @@ $('body').on('click', "#btnSubmit", function (e) {
 
         $.ajax({
             type: "POST",
-            url: "/funding-agencies/addfundingagency",
+            url: "/fundingagency/addfundingagency",
             data: myformdata,
             success: function (result) {
 
@@ -92,7 +92,7 @@ $('body').on('click', "#btnSubmit", function (e) {
                     }
                     else {
                         $("#kt_modal").modal("hide");
-                        ShowSuccessSwal("Funding agency is added successfully !", "/funding-agencies?sortExpression=Id_Desc");
+                        ShowSuccessSwal("Funding agency is added successfully !", "/fundingagency?sortExpression=Id_Desc");
                     }
                 }
             },
@@ -108,7 +108,7 @@ var deleteRecord = function (id) {
     if (id > 0) {
         $.ajax({
             type: "DELETE",
-            url: "/funding-agencies/" + id,
+            url: "/fundingagency/" + id,
             success: function (result) {
 
                 if (result != null) {
@@ -118,7 +118,7 @@ var deleteRecord = function (id) {
                     else {
                         $("#kt_modal").modal("hide");
 
-                        ShowSuccessSwal("Funding agency is deleted successfully !", "/funding-agencies");
+                        ShowSuccessSwal("Funding agency is deleted successfully !", "/fundingagency");
                     }
                 }
             },
@@ -186,7 +186,7 @@ var changeStatus = function (id) {
     if (id > 0) {
         $.ajax({
             type: "PATCH",
-            url: "/funding-agencies/" + id,
+            url: "/fundingagency/" + id,
             success: function (result) {
 
                 if (result != null) {
@@ -196,7 +196,7 @@ var changeStatus = function (id) {
                     else {
                         $("#kt_modal").modal("hide");
 
-                        ShowSuccessSwal("Funding agency status is changed successfully !", "/funding-agencies");
+                        ShowSuccessSwal("Funding agency status is changed successfully !", "/fundingagency");
                     }
                 }
             },
@@ -222,7 +222,7 @@ var updateRecord = function (id) {
 
             $.ajax({
                 type: "PUT",
-                url: "/funding-agencies/updatefundingagency",
+                url: "/fundingagency/updatefundingagency",
                 data: myformdata,
                 success: function (result) {
 
@@ -233,7 +233,7 @@ var updateRecord = function (id) {
                         else {
 
                             $("#kt_modal").modal("hide");
-                            ShowSuccessSwal("Funding agency is updated successfully !", "/funding-agencies");
+                            ShowSuccessSwal("Funding agency is updated successfully !", "/fundingagency");
                         }
                     }
                 },
